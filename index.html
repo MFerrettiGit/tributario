@@ -1054,7 +1054,7 @@ function extAutoAliq() {
 
   if (extProd) {
     icmsEnt = extProd.r > 0 ? 0.12 : extProd.i;
-    icmsSai = (!estado || estado === 'SP') ? extProd.e : (ESTADOS[estado].int + ESTADOS[estado].fecp) / 100;
+    icmsSai = (!estado || estado === 'SP') ? extProd.i : (ESTADOS[estado].int + ESTADOS[estado].fecp) / 100;
     pisTaxaFinal = extProd.p === 'M' ? 0 : pisTaxa;
 
     const entEl = document.getElementById('ext-icms-ent');
