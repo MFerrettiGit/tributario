@@ -14,7 +14,39 @@
   --sombra:0 2px 12px rgba(30,42,138,.13);
   --radius:12px;
 }
+/* ── MODO ESCURO (padrão) ── */
+html{color-scheme:dark}
+:root{
+  --cinza1:#0f1117;--cinza2:#1a1d27;--cinza3:#2a2d3e;
+  --texto:#e8eaf6;--texto2:#9fa3c0;--branco:#1e2130;
+  --sombra:0 2px 16px rgba(0,0,0,.45);
+}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cinza1);color:var(--texto);line-height:1.6}
+/* botão de alternar tema */
+#btn-tema{position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--azul2);color:#fff;border:none;border-radius:50px;
+  padding:10px 18px;font-size:.85rem;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);transition:background .2s}
+#btn-tema:hover{background:var(--azul3)}
+/* modo claro via classe */
+body.claro{
+  --cinza1:#f5f7fa;--cinza2:#e8ecf2;--cinza3:#ccd2de;
+  --texto:#1a1a2e;--texto2:#4a4a6a;--branco:#fff;
+  --sombra:0 2px 12px rgba(30,42,138,.13);
+}
+body.claro .alerta-destaque{background:#fff3cd;border-color:#e6900a}
+body.claro .alerta-destaque strong{color:#7a4500}
+body.claro .alerta-destaque p{color:#5c3300}
+body.claro .explicacao-box{background:#f0f9ff;border-color:#bae6fd;color:#0c4a6e}
+body.claro .explicacao-box h5{color:#0369a1}
+/* ajustes escuro */
+.alerta-destaque{background:#2d2000;border-color:#e6900a}
+.alerta-destaque strong{color:#fbbf24}
+.alerta-destaque p{color:#fcd34d}
+.explicacao-box{background:#0d1f35;border:1px solid #1e4068;color:#93c5fd}
+.explicacao-box h5{color:#60a5fa}
+.detalhe-table tr.highlight td{background:#1a1d2e}
+.resultado-header{background:var(--cinza2);border-left-color:var(--azul3)}
 a{color:var(--azul3);text-decoration:none}
 a:hover{text-decoration:underline}
 h1,h2,h3,h4{font-weight:700;line-height:1.3}
@@ -904,6 +936,8 @@ footer strong{color:#fff}
 </div>
 </section>
 
+<button id="btn-tema" onclick="alternarTema()" title="Alternar tema">🌙 Escuro</button>
+
 <footer>
   Desenvolvido por <strong>M. Ferretti Distribuidora</strong> — Portal de Informações Tributárias 2026<br>
   Fontes: EC 132/2023 · LC 214/2025 · LC 68/2024 · NT 2025.002 · Receita Federal · CGIBS · CONFAZ
@@ -1357,6 +1391,17 @@ function scrollTo(sel) {
   const el = document.querySelector(sel);
   if (el) el.scrollIntoView({behavior:'smooth'});
 }
+
+// ══════════ TEMA ══════════
+function alternarTema() {
+  const claro = document.body.classList.toggle('claro');
+  document.getElementById('btn-tema').textContent = claro ? '🌙 Escuro' : '☀️ Claro';
+  localStorage.setItem('tema', claro ? 'claro' : 'escuro');
+}
+(function() {
+  const t = localStorage.getItem('tema');
+  if (t === 'claro') { document.body.classList.add('claro'); document.getElementById('btn-tema').textContent = '🌙 Escuro'; }
+})();
 
 // ══════════ INIT ══════════
 initSelects();
