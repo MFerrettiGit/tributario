@@ -255,11 +255,15 @@ footer strong{color:#fff}
 .calc-avancado summary:hover{color:var(--azul2)}
 .calc-avancado[open] summary{color:var(--azul2)}
 
-/* ── INFO NAV ── */
-.info-nav{background:var(--branco);border-bottom:1px solid var(--cinza2);padding:14px 0}
-.info-chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.info-chips .chip{background:var(--cinza2);border:none;color:var(--texto2);font-size:.82rem;padding:5px 14px}
-.info-chips .chip:hover{background:var(--cinza3);color:var(--texto)}
+/* ── BARRA DE INFORMAÇÕES ── */
+.info-toggle-bar{background:var(--branco);border-top:1px solid var(--cinza2);border-bottom:1px solid var(--cinza2);padding:0}
+.info-toggle-btn{width:100%;background:none;border:none;padding:16px 0;
+  font-size:1rem;font-weight:600;color:var(--texto2);cursor:pointer;
+  display:flex;align-items:center;gap:10px;text-align:left;transition:color .2s}
+.info-toggle-btn:hover{color:var(--azul2)}
+.info-toggle-btn[aria-expanded="true"]{color:var(--azul2)}
+.info-toggle-arrow{margin-left:auto;font-size:.75rem;transition:transform .25s}
+.info-toggle-btn[aria-expanded="true"] .info-toggle-arrow{transform:rotate(180deg)}
 
 @media(max-width:640px){
   .header-inner{padding:20px 16px}
@@ -473,19 +477,16 @@ footer strong{color:#fff}
 </div>
 </section>
 
-<!-- INFO NAV -->
-<div class="info-nav">
+<!-- INFORMAÇÕES COLAPSÁVEIS -->
+<div class="info-toggle-bar">
 <div class="container">
-  <div class="info-chips">
-    <span style="color:var(--texto2);font-size:.82rem;font-weight:600">Saiba mais:</span>
-    <span class="chip" onclick="document.getElementById('resumo').scrollIntoView({behavior:'smooth'})">📋 O que muda</span>
-    <span class="chip" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">📅 Timeline</span>
-    <span class="chip" onclick="document.getElementById('tributos').scrollIntoView({behavior:'smooth'})">📚 Detalhes</span>
-    <span class="chip" onclick="document.getElementById('tabela-icms').scrollIntoView({behavior:'smooth'})">📊 Tabela ICMS</span>
-    <span class="chip" onclick="document.getElementById('referencias').scrollIntoView({behavior:'smooth'})">📄 Leis</span>
-  </div>
+  <button class="info-toggle-btn" onclick="toggleInfo(this)" aria-expanded="false">
+    📚 Informações sobre a Reforma Tributária 2026
+    <span class="info-toggle-arrow">▼</span>
+  </button>
 </div>
 </div>
+<div id="info-sections" style="display:none">
 
 <!-- ══════════ RESUMO PARA LEIGOS ══════════ -->
 <section id="resumo" style="background:var(--branco)">
@@ -954,6 +955,8 @@ footer strong{color:#fff}
   </div>
 </div>
 </section>
+
+</div><!-- /info-sections -->
 
 <button id="btn-tema" onclick="alternarTema()" title="Alternar tema">🌙 Escuro</button>
 
@@ -1450,6 +1453,14 @@ function scrollTo(sel) {
 }
 
 // ══════════ TEMA ══════════
+function toggleInfo(btn) {
+  const sec = document.getElementById('info-sections');
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !open);
+  sec.style.display = open ? 'none' : 'block';
+  if (!open) sec.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
 function alternarTema() {
   const claro = document.body.classList.toggle('claro');
   document.getElementById('btn-tema').textContent = claro ? '🌙 Escuro' : '☀️ Claro';
