@@ -255,6 +255,20 @@ footer strong{color:#fff}
 .calc-avancado summary:hover{color:var(--azul2)}
 .calc-avancado[open] summary{color:var(--azul2)}
 
+/* ── AUTOCOMPLETE ── */
+.autocomplete-wrap{position:relative}
+.ac-dropdown{position:absolute;top:100%;left:0;right:0;z-index:200;
+  background:var(--branco);border:1.5px solid var(--azul2);border-top:none;
+  border-radius:0 0 8px 8px;max-height:220px;overflow-y:auto;box-shadow:var(--sombra)}
+.ac-item{padding:9px 14px;cursor:pointer;font-size:.88rem;border-bottom:1px solid var(--cinza2);line-height:1.4}
+.ac-item:hover{background:var(--cinza2)}
+.ac-item:last-child{border-bottom:none}
+.ac-item strong{color:var(--azul2)}
+.ac-marca{font-size:.72rem;color:var(--texto2);background:var(--cinza3);padding:1px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
+
+/* ── RESULTADO EXTERNO ── */
+#resultado-ext{display:none;margin-top:24px}
+
 /* ── BARRA DE INFORMAÇÕES ── */
 .info-toggle-bar{background:var(--branco);border-top:1px solid var(--cinza2);border-bottom:1px solid var(--cinza2);padding:0}
 .info-toggle-btn{width:100%;background:none;border:none;padding:16px 0;
@@ -278,6 +292,7 @@ footer strong{color:#fff}
 }
 </style>
 </head>
+<script src="dados-calc.js"></script>
 <body>
 
 <!-- ══════════ HEADER ══════════ -->
@@ -295,22 +310,96 @@ footer strong{color:#fff}
 <section id="calculadora" style="padding:36px 0 28px">
 <div class="container">
   <div style="text-align:center;margin-bottom:24px">
-    <h1 style="font-size:clamp(1.4rem,3vw,2rem);color:var(--texto);margin-bottom:6px">🧮 Calculadora de Impostos 2026</h1>
-    <p style="color:var(--texto2);font-size:.95rem">Selecione os estados — alíquotas preenchidas automaticamente</p>
+    <h1 style="font-size:clamp(1.4rem,3vw,2rem);color:var(--texto);margin-bottom:6px">🧮 Calculadora de Custo</h1>
+    <p style="color:var(--texto2);font-size:.95rem">Alíquotas preenchidas automaticamente pelo produto ou estado</p>
   </div>
 
   <div class="calc-container">
     <div style="padding:0 24px;border-bottom:2px solid var(--cinza2)">
       <div class="tabs" style="border:none;margin:0">
-        <button class="tab-btn ativo" onclick="mudarAba(this,'calc-simples')">Sem Substituição Tributária</button>
+        <button class="tab-btn ativo" onclick="mudarAba(this,'calc-externa')">Clientes</button>
+        <button class="tab-btn" onclick="mudarAba(this,'calc-simples')">Sem Substituição Tributária</button>
         <button class="tab-btn" onclick="mudarAba(this,'calc-st')">Com Substituição Tributária (ST)</button>
       </div>
     </div>
 
     <div class="calc-body">
 
+      <!-- CALC EXTERNA (CLIENTES) -->
+      <div class="tab-panel ativo" id="calc-externa">
+
+        <div class="form-grid-3" style="align-items:end">
+          <div class="form-group" style="grid-column:span 2">
+            <label>Produto</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="ext-busca" placeholder="Código ou descrição do produto..." autocomplete="off" oninput="extBusca(this.value)" onfocus="extBusca(this.value)">
+              <div id="ext-dropdown" class="ac-dropdown hidden"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>NCM</label>
+            <input type="text" id="ext-ncm" placeholder="Ex: 33072010" maxlength="10" oninput="extPorNCM(this.value)">
+          </div>
+        </div>
+
+        <div id="ext-aliq-strip" class="aliq-strip hidden"></div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Estado do Cliente</label>
+            <select id="ext-estado" onchange="extAutoAliq()">
+              <option value="SP">SP — São Paulo (padrão)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Regime Ferretti</label>
+            <select id="ext-regime" onchange="extAutoAliq()">
+              <option value="real">Lucro Real — PIS/COFINS 9,25%</option>
+              <option value="presumido">Lucro Presumido — PIS/COFINS 3,65%</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Margem do Cliente (%)</label>
+            <input type="number" id="ext-margem" placeholder="Ex: 30" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Preço do Produto (R$)</label>
+            <input type="number" id="ext-preco" placeholder="Custo de compra" step="0.01" min="0">
+          </div>
+        </div>
+
+        <details class="calc-avancado">
+          <summary>⚙️ Alíquotas — ajuste manual</summary>
+          <div class="form-grid-3" style="margin-top:14px">
+            <div class="form-group">
+              <label>ICMS Entrada (%)</label>
+              <input type="number" id="ext-icms-ent" step="0.01" min="0" placeholder="Auto">
+              <small id="ext-icms-ent-hint">Preenchido pelo produto</small>
+            </div>
+            <div class="form-group">
+              <label>ICMS Saída (%)</label>
+              <input type="number" id="ext-icms-sai" step="0.01" min="0" placeholder="Auto">
+              <small id="ext-icms-sai-hint">Preenchido pelo estado</small>
+            </div>
+            <div class="form-group">
+              <label>PIS/COFINS (%)</label>
+              <input type="number" id="ext-piscofins" step="0.01" min="0" placeholder="Auto">
+              <small id="ext-piscofins-hint">Definido pelo regime</small>
+            </div>
+          </div>
+        </details>
+
+        <button class="btn-calcular" onclick="calcExterna()">Calcular Preço de Venda →</button>
+        <button class="btn-limpar" onclick="limparCalc('ext')">Limpar</button>
+
+        <div id="resultado-ext"></div>
+      </div>
+
       <!-- CALC SIMPLES -->
-      <div class="tab-panel ativo" id="calc-simples">
+      <div class="tab-panel" id="calc-simples">
         <div class="form-grid-3">
           <div class="form-group">
             <label>Regime Tributário</label>
@@ -1471,8 +1560,149 @@ function alternarTema() {
   if (t === 'claro') { document.body.classList.add('claro'); document.getElementById('btn-tema').textContent = '🌙 Escuro'; }
 })();
 
+// ══════════ CALCULADORA EXTERNA (CLIENTES) ══════════
+let extProd = null;
+
+function extBusca(q) {
+  const dd = document.getElementById('ext-dropdown');
+  if (!q || q.length < 2) { dd.classList.add('hidden'); return; }
+  const ql = q.toLowerCase();
+  const matches = Object.entries(PROD)
+    .filter(([k,v]) => k.toLowerCase().includes(ql) || v.d.toLowerCase().includes(ql))
+    .slice(0, 12);
+  if (!matches.length) { dd.classList.add('hidden'); return; }
+  dd.innerHTML = matches.map(([k,v]) =>
+    '<div class="ac-item" onclick="extSelecionarProd(\''+k+'\')">' +
+    '<strong>'+k+'</strong><span class="ac-marca">'+v.m+'</span><br>' +
+    '<span style="color:var(--texto2);font-size:.82rem">'+v.d+'</span></div>'
+  ).join('');
+  dd.classList.remove('hidden');
+}
+
+function extSelecionarProd(cod) {
+  if (!PROD[cod]) return;
+  extProd = Object.assign({cod:cod}, PROD[cod]);
+  document.getElementById('ext-busca').value = cod + ' — ' + extProd.d;
+  document.getElementById('ext-ncm').value = extProd.n;
+  document.getElementById('ext-dropdown').classList.add('hidden');
+  ['ext-icms-ent','ext-icms-sai','ext-piscofins'].forEach(id => delete document.getElementById(id).dataset.manual);
+  extAutoAliq();
+}
+
+function extPorNCM(ncm) {
+  if (!ncm || ncm.length < 8) return;
+  const found = Object.entries(PROD).find(([,v]) => v.n === ncm);
+  if (found) extSelecionarProd(found[0]);
+}
+
+function extAutoAliq() {
+  const estado = document.getElementById('ext-estado').value;
+  const regime = document.getElementById('ext-regime').value;
+  const pisTaxa = regime === 'real' ? 0.0925 : 0.0365;
+
+  let icmsEnt = 0, icmsSai = 0, pisTaxaFinal = pisTaxa;
+
+  if (extProd) {
+    icmsEnt = extProd.r > 0 ? 0.12 : extProd.i;
+    icmsSai = (!estado || estado === 'SP') ? extProd.e : (ESTADOS[estado].int + ESTADOS[estado].fecp) / 100;
+    pisTaxaFinal = extProd.p === 'M' ? 0 : pisTaxa;
+
+    const entEl = document.getElementById('ext-icms-ent');
+    const saiEl = document.getElementById('ext-icms-sai');
+    const pisEl = document.getElementById('ext-piscofins');
+    if (!entEl.dataset.manual) {
+      entEl.value = (icmsEnt * 100).toFixed(2);
+      document.getElementById('ext-icms-ent-hint').textContent = extProd.r > 0 ? 'Base reduzida: 18%×(1-33,33%)=12%' : 'Alíquota do cadastro';
+    }
+    if (!saiEl.dataset.manual) {
+      saiEl.value = (icmsSai * 100).toFixed(2);
+      document.getElementById('ext-icms-sai-hint').textContent = (!estado||estado==='SP') ? 'SP — alíquota conforme NCM/cadastro' : estado + ': alíquota interna';
+    }
+    if (!pisEl.dataset.manual) {
+      pisEl.value = (pisTaxaFinal * 100).toFixed(2);
+      document.getElementById('ext-piscofins-hint').textContent = extProd.p === 'M' ? 'Monofásico — zero na revenda' : (regime==='real'?'Lucro Real 9,25%':'Lucro Presumido 3,65%');
+    }
+  }
+
+  // Badge strip
+  const strip = document.getElementById('ext-aliq-strip');
+  if (extProd) {
+    let html = '<span class="aliq-badge auto">📥 Entrada: '+(icmsEnt*100).toFixed(1)+'%'+(extProd.r>0?' (base red.)':'')+'</span>';
+    html += '<span class="aliq-badge inter">📤 Saída '+(estado||'SP')+': '+(icmsSai*100).toFixed(1)+'%</span>';
+    html += pisTaxaFinal > 0
+      ? '<span class="aliq-badge pis">🧾 PIS/COFINS: '+(pisTaxaFinal*100).toFixed(2)+'%</span>'
+      : '<span class="aliq-badge warn">⚡ Monofásico: PIS/COFINS zero na revenda</span>';
+    strip.innerHTML = html; strip.classList.remove('hidden');
+  }
+}
+
+function calcExterna() {
+  const preco  = parseFloat(document.getElementById('ext-preco').value)    || 0;
+  const margem = (parseFloat(document.getElementById('ext-margem').value)   || 0) / 100;
+  const icmsE  = (parseFloat(document.getElementById('ext-icms-ent').value) || 0) / 100;
+  const icmsS  = (parseFloat(document.getElementById('ext-icms-sai').value) || 0) / 100;
+  const pisCof = (parseFloat(document.getElementById('ext-piscofins').value)|| 0) / 100;
+
+  if (!preco)  { alert('Preencha o preço do produto'); return; }
+  if (!margem) { alert('Preencha a margem do cliente'); return; }
+
+  const creditoIcms  = preco * icmsE;
+  const creditoPis   = preco * pisCof;
+  const precoLiq     = preco - creditoIcms - creditoPis;
+  const divisor      = 1 - margem - icmsS - pisCof;
+  if (divisor <= 0)  { alert('Percentuais somados excedem 100% — revise os valores'); return; }
+  const precoVenda   = precoLiq / divisor;
+  const icmsSaiVal   = precoVenda * icmsS;
+  const pisSaiVal    = precoVenda * pisCof;
+  const margemVal    = precoVenda * margem;
+
+  const div = document.getElementById('resultado-ext');
+  div.style.display = 'block';
+  const prodInfo = extProd ? '<p style="font-size:.85rem;color:var(--texto2);margin-top:2px">'+extProd.d+' · NCM '+extProd.n+'</p>' : '';
+  div.innerHTML =
+    '<div class="resultado-header"><h4>📊 Resultado'+(extProd?' — '+extProd.cod:'')+'</h4>'+prodInfo+'</div>'+
+    '<div class="etapas-grid" style="grid-template-columns:repeat(3,1fr)">'+
+      '<div class="etapa-card"><div class="etapa-label">Preço do Produto</div><div class="etapa-valor">'+fmt(preco)+'</div><div class="etapa-sub">Custo de compra</div></div>'+
+      '<div class="etapa-card"><div class="etapa-label">Preço Líquido</div><div class="etapa-valor">'+fmt(precoLiq)+'</div><div class="etapa-sub">Após créditos ICMS'+(pisCof>0?' + PIS/COFINS':'')+'</div></div>'+
+      '<div class="etapa-card destaque"><div class="etapa-label">Preço de Venda</div><div class="etapa-valor">'+fmt(precoVenda)+'</div><div class="etapa-sub">Com margem do cliente</div></div>'+
+    '</div>'+
+    '<table class="detalhe-table">'+
+      '<tr><td>Preço de compra (produto)</td><td>'+fmt(preco)+'</td></tr>'+
+      '<tr class="highlight"><td>(−) Crédito ICMS entrada ('+fmtP(icmsE*100)+')</td><td>− '+fmt(creditoIcms)+'</td></tr>'+
+      (pisCof>0?'<tr class="highlight"><td>(−) Crédito PIS/COFINS entrada ('+fmtP(pisCof*100)+')</td><td>− '+fmt(creditoPis)+'</td></tr>':'')+
+      '<tr class="total"><td>= Preço Líquido</td><td>'+fmt(precoLiq)+'</td></tr>'+
+      '<tr><td>Divisor: 1 − margem − ICMS saída'+(pisCof>0?' − PIS/COFINS':'')+'</td><td>'+(divisor*100).toFixed(4)+'%</td></tr>'+
+      '<tr class="total"><td>= Preço de Venda ao Cliente</td><td>'+fmt(precoVenda)+'</td></tr>'+
+      '<tr><td>  ICMS saída ('+fmtP(icmsS*100)+')</td><td>'+fmt(icmsSaiVal)+'</td></tr>'+
+      (pisCof>0?'<tr><td>  PIS/COFINS saída ('+fmtP(pisCof*100)+')</td><td>'+fmt(pisSaiVal)+'</td></tr>':'')+
+      '<tr><td>  Margem do cliente ('+fmtP(margem*100)+')</td><td>'+fmt(margemVal)+'</td></tr>'+
+    '</table>'+
+    (extProd&&extProd.p==='M'?'<div class="explicacao-box" style="margin-top:12px"><h5>Regime Monofásico</h5><p>PIS/COFINS recolhido concentrado pelo fabricante. A Ferretti não recolhe PIS/COFINS na revenda — alíquota zero.</p></div>':'');
+}
+
+// Fechar dropdown ao clicar fora
+document.addEventListener('click', e => {
+  if (!e.target.closest('.autocomplete-wrap')) document.getElementById('ext-dropdown').classList.add('hidden');
+});
+
+// Marcar como manual quando o usuário edita os campos da externa
+['ext-icms-ent','ext-icms-sai','ext-piscofins'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => el.dataset.manual = '1');
+});
+
 // ══════════ INIT ══════════
 initSelects();
+// Popular estados na externa
+(function(){
+  const sel = document.getElementById('ext-estado');
+  Object.keys(ESTADOS).sort().forEach(uf => {
+    if (uf === 'SP') return; // SP já é padrão
+    const opt = document.createElement('option');
+    opt.value = uf; opt.textContent = uf + ' — ' + ESTADOS[uf].n;
+    sel.appendChild(opt);
+  });
+})();
 initTabela();
 calcAutoAliq('s');
 </script>
