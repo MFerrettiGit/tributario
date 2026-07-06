@@ -318,8 +318,7 @@ footer strong{color:#fff}
     <div style="padding:0 24px;border-bottom:2px solid var(--cinza2)">
       <div class="tabs" style="border:none;margin:0">
         <button class="tab-btn ativo" onclick="mudarAba(this,'calc-externa')">Clientes</button>
-        <button class="tab-btn" onclick="mudarAba(this,'calc-simples')">Sem Substituição Tributária</button>
-        <button class="tab-btn" onclick="mudarAba(this,'calc-st')">Com Substituição Tributária (ST)</button>
+        <button class="tab-btn" disabled style="opacity:.4;cursor:default">Interna (em breve)</button>
       </div>
     </div>
 
@@ -352,19 +351,9 @@ footer strong{color:#fff}
             </select>
           </div>
           <div class="form-group">
-            <label>Regime Ferretti</label>
-            <select id="ext-regime" onchange="extAutoAliq()">
-              <option value="real">Lucro Real — PIS/COFINS 9,25%</option>
-              <option value="presumido">Lucro Presumido — PIS/COFINS 3,65%</option>
-            </select>
-          </div>
-          <div class="form-group">
             <label>Margem do Cliente (%)</label>
             <input type="number" id="ext-margem" placeholder="Ex: 30" step="0.01" min="0">
           </div>
-        </div>
-
-        <div class="form-grid-3">
           <div class="form-group">
             <label>Preço do Produto (R$)</label>
             <input type="number" id="ext-preco" placeholder="Custo de compra" step="0.01" min="0">
@@ -397,169 +386,6 @@ footer strong{color:#fff}
 
         <div id="resultado-ext"></div>
       </div>
-
-      <!-- CALC SIMPLES -->
-      <div class="tab-panel" id="calc-simples">
-        <div class="form-grid-3">
-          <div class="form-group">
-            <label>Regime Tributário</label>
-            <select id="s-regime" onchange="calcAutoAliq('s')">
-              <option value="real">Lucro Real — PIS/COFINS 9,25%</option>
-              <option value="presumido">Lucro Presumido — PIS/COFINS 3,65%</option>
-              <option value="simples">Simples Nacional</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>UF Origem</label>
-            <select id="s-uf-origem" onchange="calcAutoAliq('s')">
-              <option value="">Selecione...</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>UF Destino</label>
-            <select id="s-uf-destino" onchange="calcAutoAliq('s')">
-              <option value="">Selecione...</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="s-aliq-strip" class="aliq-strip hidden"></div>
-
-        <div class="form-grid-4">
-          <div class="form-group">
-            <label>Preço Indústria (R$)</label>
-            <input type="number" id="s-preco" placeholder="Ex: 100,00" step="0.01" min="0">
-          </div>
-          <div class="form-group">
-            <label>IPI (%)</label>
-            <input type="number" id="s-ipi" value="0" step="0.01" min="0">
-            <small>0% para distribuidor</small>
-          </div>
-          <div class="form-group">
-            <label>Margem Distribuidor (%)</label>
-            <input type="number" id="s-margem-dist" value="20" step="0.01" min="0">
-          </div>
-          <div class="form-group">
-            <label>Margem Varejista (%)</label>
-            <input type="number" id="s-margem-var" value="40" step="0.01" min="0">
-          </div>
-        </div>
-
-        <details class="calc-avancado">
-          <summary>⚙️ Ajustar alíquotas manualmente</summary>
-          <div class="form-grid-3" style="margin-top:14px">
-            <div class="form-group">
-              <label>ICMS Operação (%)</label>
-              <input type="number" id="s-icms-op" step="0.01" min="0" placeholder="Auto">
-              <small id="s-icms-op-hint">Preenchido ao selecionar UFs</small>
-            </div>
-            <div class="form-group">
-              <label>PIS+COFINS Indústria (%)</label>
-              <input type="number" id="s-piscofins" step="0.01" min="0" placeholder="Auto">
-              <small id="s-piscofins-hint">Preenchido pelo regime</small>
-            </div>
-            <div class="form-group">
-              <label>ICMS Distribuidor (%)</label>
-              <input type="number" id="s-icms-dist" step="0.01" min="0" placeholder="Auto">
-              <small id="s-icms-dist-hint">Alíquota interna do destino</small>
-            </div>
-            <div class="form-group">
-              <label>PIS+COFINS Distribuidor (%)</label>
-              <input type="number" id="s-piscofins-dist" step="0.01" min="0" placeholder="Auto">
-            </div>
-            <div class="form-group">
-              <label>ICMS Varejista (%)</label>
-              <input type="number" id="s-icms-var" step="0.01" min="0" placeholder="Auto">
-            </div>
-          </div>
-        </details>
-
-        <button class="btn-calcular" onclick="calcSimples()">Calcular Impostos →</button>
-        <button class="btn-limpar" onclick="limparCalc('simples')">Limpar</button>
-      </div>
-
-      <!-- CALC ST -->
-      <div class="tab-panel" id="calc-st">
-        <div class="form-grid-3">
-          <div class="form-group">
-            <label>UF Origem (Indústria)</label>
-            <select id="st-uf-origem" onchange="calcAutoAliq('st')">
-              <option value="">Selecione...</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>UF Destino (Distribuidor)</label>
-            <select id="st-uf-destino" onchange="calcAutoAliq('st')">
-              <option value="">Selecione...</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Produto importado?</label>
-            <select id="st-importado" onchange="calcAutoAliq('st')">
-              <option value="nao">Não — produto nacional</option>
-              <option value="sim">Sim — importado / alto conteúdo</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="st-aliq-strip" class="aliq-strip hidden"></div>
-
-        <div class="form-grid-4">
-          <div class="form-group">
-            <label>Preço Indústria (R$)</label>
-            <input type="number" id="st-preco" placeholder="Ex: 100,00" step="0.01" min="0">
-          </div>
-          <div class="form-group">
-            <label>IPI (%)</label>
-            <input type="number" id="st-ipi" value="0" step="0.01" min="0">
-          </div>
-          <div class="form-group">
-            <label>MVA Original (%)</label>
-            <input type="number" id="st-mva" placeholder="Ex: 30" step="0.01" min="0">
-            <small>Definido por Protocolo CONFAZ</small>
-          </div>
-          <div class="form-group">
-            <label>Usar MVA Ajustada?</label>
-            <select id="st-usa-mva-aj">
-              <option value="sim">Sim (interestadual)</option>
-              <option value="nao">Não — usar MVA original</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-grid-4">
-          <div class="form-group">
-            <label>Margem Distribuidor (%)</label>
-            <input type="number" id="st-margem-dist" value="20" step="0.01" min="0">
-          </div>
-          <div class="form-group">
-            <label>Margem Varejista (%)</label>
-            <input type="number" id="st-margem-var" value="40" step="0.01" min="0">
-          </div>
-        </div>
-
-        <details class="calc-avancado">
-          <summary>⚙️ Ajustar alíquotas manualmente</summary>
-          <div class="form-grid-3" style="margin-top:14px">
-            <div class="form-group">
-              <label>ICMS Interestadual (%)</label>
-              <input type="number" id="st-icms-inter" step="0.01" min="0" placeholder="Auto">
-              <small id="st-icms-inter-hint">Preenchido ao selecionar UFs</small>
-            </div>
-            <div class="form-group">
-              <label>Alíquota Interna Destino (%)</label>
-              <input type="number" id="st-aliq-interna" step="0.01" min="0" placeholder="Auto">
-              <small id="st-aliq-hint">Preenchido ao selecionar UF destino</small>
-            </div>
-          </div>
-        </details>
-
-        <button class="btn-calcular" onclick="calcST()">Calcular com ST →</button>
-        <button class="btn-limpar" onclick="limparCalc('st')">Limpar</button>
-      </div>
-
-      <!-- RESULTADO -->
-      <div id="resultado"></div>
 
     </div>
   </div>
@@ -1103,16 +929,7 @@ function fmtP(v) { return v.toFixed(2).replace('.',',') + '%'; }
 
 // ══════════ INICIALIZAÇÃO ══════════
 function initSelects() {
-  const ufs = Object.keys(ESTADOS).sort();
-  ['s-uf-origem','s-uf-destino','st-uf-origem','st-uf-destino'].forEach(id => {
-    const sel = document.getElementById(id);
-    ufs.forEach(uf => {
-      const opt = document.createElement('option');
-      opt.value = uf;
-      opt.textContent = uf + ' — ' + ESTADOS[uf].n;
-      sel.appendChild(opt);
-    });
-  });
+  // selects das abas removidas eliminados
 }
 
 function initTabela() {
@@ -1136,378 +953,6 @@ function initTabela() {
   });
 }
 
-// ══════════ AUTO-ALÍQUOTAS ══════════
-function calcAutoAliq(prefix) {
-  const orig = document.getElementById(prefix + '-uf-origem').value;
-  const dest = document.getElementById(prefix + '-uf-destino').value;
-
-  if (prefix === 's') {
-    const regime = document.getElementById('s-regime').value;
-    const pisCofins = regime === 'real' ? 9.25 : regime === 'presumido' ? 3.65 : 0;
-    const pisCofinsEl = document.getElementById('s-piscofins');
-    const pisCofinsDistEl = document.getElementById('s-piscofins-dist');
-    if (pisCofinsEl && !pisCofinsEl.dataset.manual) {
-      pisCofinsEl.value = pisCofins > 0 ? pisCofins : '';
-      document.getElementById('s-piscofins-hint').textContent =
-        regime === 'real' ? 'PIS 1,65% + COFINS 7,6%' :
-        regime === 'presumido' ? 'PIS 0,65% + COFINS 3%' : 'Simples: embutido no DAS';
-    }
-    if (pisCofinsDistEl && !pisCofinsDistEl.dataset.manual) pisCofinsDistEl.value = pisCofins > 0 ? pisCofins : '';
-
-    // Preenche campos do destino ao selecionar só o destino
-    if (dest) {
-      const aliqInterna = ESTADOS[dest].int + ESTADOS[dest].fecp;
-      const icmsDistEl = document.getElementById('s-icms-dist');
-      const icmsVarEl = document.getElementById('s-icms-var');
-      if (!icmsDistEl.dataset.manual) {
-        icmsDistEl.value = aliqInterna;
-        document.getElementById('s-icms-dist-hint').textContent = ESTADOS[dest].n + ': ' + aliqInterna + '% interna';
-      }
-      if (!icmsVarEl.dataset.manual) icmsVarEl.value = aliqInterna;
-    }
-
-    // Preenche ICMS da operação quando ambos os estados estão selecionados
-    if (orig && dest) {
-      const intra = orig === dest;
-      const aliq = intra ? ESTADOS[orig].int : getAliqInter(orig, dest, false);
-      const icmsOpEl = document.getElementById('s-icms-op');
-      if (!icmsOpEl.dataset.manual) {
-        icmsOpEl.value = aliq;
-        document.getElementById('s-icms-op-hint').textContent = intra
-          ? 'Intraestadual: ' + orig + ' = ' + aliq + '%'
-          : orig + '→' + dest + ': ' + aliq + '% interestadual';
-      }
-    } else if (orig && !dest) {
-      const icmsOpEl = document.getElementById('s-icms-op');
-      if (!icmsOpEl.dataset.manual) {
-        icmsOpEl.value = ESTADOS[orig].int;
-        document.getElementById('s-icms-op-hint').textContent = orig + ': ' + ESTADOS[orig].int + '% (intraestadual)';
-      }
-    }
-
-    updateBadgeStrip('s', orig, dest, pisCofins);
-  }
-
-  if (prefix === 'st') {
-    const importado = document.getElementById('st-importado').value === 'sim';
-    if (dest) {
-      const aliqInterna = ESTADOS[dest].int + ESTADOS[dest].fecp;
-      const intEl = document.getElementById('st-aliq-interna');
-      if (!intEl.dataset.manual) {
-        intEl.value = aliqInterna;
-        document.getElementById('st-aliq-hint').textContent = ESTADOS[dest].n + ': ' + aliqInterna + '% interna';
-      }
-    }
-    if (orig && dest) {
-      const aliqInter = getAliqInter(orig, dest, importado);
-      const interEl = document.getElementById('st-icms-inter');
-      if (!interEl.dataset.manual) {
-        interEl.value = aliqInter;
-        document.getElementById('st-icms-inter-hint').textContent =
-          importado ? '4% (importado — Res. Sen. 13/2012)' : orig + '→' + dest + ': ' + aliqInter + '%';
-      }
-    }
-    updateBadgeStrip('st', orig, dest, 0, importado);
-  }
-}
-
-function updateBadgeStrip(prefix, orig, dest, pisCofins, importado) {
-  const strip = document.getElementById(prefix + '-aliq-strip');
-  if (!strip) return;
-  let html = '';
-  if (dest) {
-    const aliqInterna = ESTADOS[dest].int + ESTADOS[dest].fecp;
-    const extra = ESTADOS[dest].fecp > 0 ? ' (+' + ESTADOS[dest].fecp + '% FECP)' : '';
-    html += '<span class="aliq-badge auto">🏷 ' + dest + ': ' + aliqInterna + '% interna' + extra + '</span>';
-  }
-  if (orig && dest && orig !== dest) {
-    const aliq = getAliqInter(orig, dest, importado || false);
-    html += '<span class="aliq-badge inter">↗ ' + orig + '→' + dest + ': ' + aliq + '% interestadual</span>';
-  } else if (orig && !dest) {
-    html += '<span class="aliq-badge inter">↗ ' + orig + ': ' + ESTADOS[orig].int + '% — selecione destino p/ interestadual</span>';
-  }
-  if (pisCofins > 0) {
-    const label = pisCofins === 9.25 ? 'PIS/COFINS: 9,25% (Lucro Real)' : 'PIS/COFINS: 3,65% (Lucro Presumido)';
-    html += '<span class="aliq-badge pis">🧾 ' + label + '</span>';
-  } else if (prefix === 's') {
-    const regime = document.getElementById('s-regime').value;
-    if (regime === 'simples') html += '<span class="aliq-badge warn">⚠ Simples: PIS/COFINS no DAS</span>';
-  }
-  strip.innerHTML = html;
-  strip.classList.toggle('hidden', !html);
-}
-
-// Marcar como manual quando o usuário edita
-['s-icms-op','s-piscofins','s-icms-dist','s-piscofins-dist','s-icms-var',
- 'st-icms-inter','st-aliq-interna'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', () => el.dataset.manual = '1');
-});
-
-// ══════════ CALC SIMPLES ══════════
-function calcSimples() {
-  const preco = parseFloat(document.getElementById('s-preco').value) || 0;
-  const ipi   = parseFloat(document.getElementById('s-ipi').value)   || 0;
-  const icmsOp = parseFloat(document.getElementById('s-icms-op').value) || 0;
-  const piscofins = parseFloat(document.getElementById('s-piscofins').value) || 0;
-  const margemDist = parseFloat(document.getElementById('s-margem-dist').value) || 0;
-  const icmsDist = parseFloat(document.getElementById('s-icms-dist').value) || 0;
-  const piscofinsDist = parseFloat(document.getElementById('s-piscofins-dist').value) || 0;
-  const margemVar = parseFloat(document.getElementById('s-margem-var').value) || 0;
-  const icmsVar = parseFloat(document.getElementById('s-icms-var').value) || 0;
-
-  if (preco <= 0) { alert('Informe o preço de venda da indústria.'); return; }
-
-  // INDÚSTRIA
-  const vIPI = preco * ipi / 100;
-  const totalNF_ind = preco + vIPI;
-  const vICMS_ind = preco * icmsOp / 100;
-  const vPIS_ind = preco * (piscofins > 0 ? (piscofins * 1.65/9.25) / 100 : 0); // só PIS
-  const vCOFINS_ind = preco * (piscofins > 0 ? (piscofins * 7.6/9.25) / 100 : 0);
-  const vPISCOFINS_ind = preco * piscofins / 100;
-
-  // CUSTO DISTRIBUIDOR
-  const custoDist = totalNF_ind; // paga produto + IPI
-  const precoVendaDist = custoDist * (1 + margemDist / 100);
-  const vICMS_dist_debito = precoVendaDist * icmsDist / 100;
-  const vICMS_dist_credito = preco * icmsOp / 100; // crédito da entrada
-  const vICMS_dist_recolher = Math.max(0, vICMS_dist_debito - vICMS_dist_credito);
-  const vPISCOFINS_dist = precoVendaDist * piscofinsDist / 100;
-
-  // CUSTO VAREJISTA
-  const custoVar = precoVendaDist;
-  const precoVendaVar = custoVar * (1 + margemVar / 100);
-  const vICMS_var_debito = precoVendaVar * icmsVar / 100;
-  const vICMS_var_credito = precoVendaDist * icmsDist / 100;
-  const vICMS_var_recolher = Math.max(0, vICMS_var_debito - vICMS_var_credito);
-
-  // TOTAIS
-  const totalICMS = vICMS_ind + vICMS_dist_recolher + vICMS_var_recolher;
-  const totalPIS = vPISCOFINS_ind + vPISCOFINS_dist;
-  const totalImpostos = vIPI + totalICMS + totalPIS;
-  const cargaPerc = precoVendaVar > 0 ? (totalImpostos / precoVendaVar) * 100 : 0;
-
-  const res = document.getElementById('resultado');
-  res.style.display = 'block';
-  res.innerHTML = `
-    <div class="resultado-header">
-      <h4>📊 Resultado — Cadeia Completa (sem ST)</h4>
-      <p style="font-size:.88rem;color:var(--texto2)">Preço base saída fábrica: ${fmt(preco)} · IPI: ${fmtP(ipi)} · ICMS op.: ${fmtP(icmsOp)} · PIS/COFINS: ${fmtP(piscofins)}</p>
-    </div>
-
-    <div class="etapas-grid">
-      <div class="etapa-card">
-        <div class="etapa-label">🏭 Saída da Indústria</div>
-        <div class="etapa-valor">${fmt(preco)}</div>
-        <div class="etapa-sub">Valor do produto s/ impostos</div>
-      </div>
-      <div class="etapa-card">
-        <div class="etapa-label">📋 Total NF Indústria</div>
-        <div class="etapa-valor">${fmt(totalNF_ind)}</div>
-        <div class="etapa-sub">Produto + IPI (${fmt(vIPI)})</div>
-      </div>
-      <div class="etapa-card">
-        <div class="etapa-label">🏪 Preço Distribuidor Venda</div>
-        <div class="etapa-valor">${fmt(precoVendaDist)}</div>
-        <div class="etapa-sub">Custo + margem ${fmtP(margemDist)}</div>
-      </div>
-      <div class="etapa-card destaque">
-        <div class="etapa-label">🛒 Preço Consumidor Final</div>
-        <div class="etapa-valor">${fmt(precoVendaVar)}</div>
-        <div class="etapa-sub">Varejista + margem ${fmtP(margemVar)}</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
-
-      <div>
-        <div class="form-section-title">💼 Impostos na Saída da Indústria</div>
-        <table class="detalhe-table">
-          <tr><td>Preço do produto (base)</td><td>${fmt(preco)}</td></tr>
-          <tr class="highlight"><td>IPI (${fmtP(ipi)})</td><td>${fmt(vIPI)}</td></tr>
-          <tr class="highlight"><td>ICMS destacado (${fmtP(icmsOp)} × ${fmt(preco)})</td><td>${fmt(vICMS_ind)}</td></tr>
-          <tr class="highlight"><td>PIS/COFINS (${fmtP(piscofins)} × ${fmt(preco)})</td><td>${fmt(vPISCOFINS_ind)}</td></tr>
-          <tr class="total"><td>Total NF (produto + IPI)</td><td>${fmt(totalNF_ind)}</td></tr>
-        </table>
-      </div>
-
-      <div>
-        <div class="form-section-title">🏪 Impostos no Distribuidor</div>
-        <table class="detalhe-table">
-          <tr><td>Custo de aquisição</td><td>${fmt(custoDist)}</td></tr>
-          <tr><td>Preço de venda (+ ${fmtP(margemDist)})</td><td>${fmt(precoVendaDist)}</td></tr>
-          <tr class="highlight"><td>ICMS débito (${fmtP(icmsDist)} × ${fmt(precoVendaDist)})</td><td>${fmt(vICMS_dist_debito)}</td></tr>
-          <tr><td>ICMS crédito da entrada</td><td>− ${fmt(vICMS_dist_credito)}</td></tr>
-          <tr class="highlight"><td>ICMS a recolher (líquido)</td><td>${fmt(vICMS_dist_recolher)}</td></tr>
-          <tr class="highlight"><td>PIS/COFINS (${fmtP(piscofinsDist)})</td><td>${fmt(vPISCOFINS_dist)}</td></tr>
-        </table>
-      </div>
-
-      <div>
-        <div class="form-section-title">🛒 Impostos no Varejista</div>
-        <table class="detalhe-table">
-          <tr><td>Custo de aquisição</td><td>${fmt(custoVar)}</td></tr>
-          <tr><td>Preço de venda (+ ${fmtP(margemVar)})</td><td>${fmt(precoVendaVar)}</td></tr>
-          <tr class="highlight"><td>ICMS débito (${fmtP(icmsVar)} × ${fmt(precoVendaVar)})</td><td>${fmt(vICMS_var_debito)}</td></tr>
-          <tr><td>ICMS crédito da entrada</td><td>− ${fmt(vICMS_var_credito)}</td></tr>
-          <tr class="highlight"><td>ICMS a recolher (líquido)</td><td>${fmt(vICMS_var_recolher)}</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="carga-total">
-      <div class="carga-item">
-        <div class="carga-val">${fmt(precoVendaVar)}</div>
-        <div class="carga-desc">Preço ao Consumidor</div>
-      </div>
-      <div class="carga-item">
-        <div class="carga-val">${fmt(totalImpostos)}</div>
-        <div class="carga-desc">Total de Impostos Pagos</div>
-      </div>
-      <div class="carga-item">
-        <div class="carga-val">${fmtP(cargaPerc)}</div>
-        <div class="carga-desc">Carga Tributária Efetiva</div>
-      </div>
-    </div>
-
-    <div class="explicacao-box" style="margin-top:16px">
-      <h5>Como chegamos a esses números</h5>
-      <ol>
-        <li><strong>IPI:</strong> ${fmt(preco)} × ${fmtP(ipi)} = ${fmt(vIPI)} (destacado na NF, não entra na BC do ICMS)</li>
-        <li><strong>ICMS da indústria:</strong> ${fmt(preco)} × ${fmtP(icmsOp)} = ${fmt(vICMS_ind)} (destacado na NF)</li>
-        <li><strong>PIS/COFINS da indústria:</strong> ${fmt(preco)} × ${fmtP(piscofins)} = ${fmt(vPISCOFINS_ind)}</li>
-        <li><strong>Distribuidor compra:</strong> ${fmt(totalNF_ind)} (produto + IPI) e aplica margem de ${fmtP(margemDist)} → vende por ${fmt(precoVendaDist)}</li>
-        <li><strong>ICMS do distribuidor:</strong> débito ${fmt(vICMS_dist_debito)} − crédito da entrada ${fmt(vICMS_dist_credito)} = <strong>recolhe ${fmt(vICMS_dist_recolher)}</strong></li>
-        <li><strong>Varejista compra:</strong> ${fmt(precoVendaDist)} e aplica margem de ${fmtP(margemVar)} → vende por ${fmt(precoVendaVar)}</li>
-        <li><strong>ICMS do varejista:</strong> débito ${fmt(vICMS_var_debito)} − crédito ${fmt(vICMS_var_credito)} = <strong>recolhe ${fmt(vICMS_var_recolher)}</strong></li>
-        <li><strong>Carga total:</strong> IPI ${fmt(vIPI)} + ICMS total ${fmt(totalICMS)} + PIS/COFINS ${fmt(totalPIS)} = ${fmt(totalImpostos)} (${fmtP(cargaPerc)} do preço final)</li>
-      </ol>
-    </div>
-  `;
-  res.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-// ══════════ CALC COM ST ══════════
-function calcST() {
-  const preco = parseFloat(document.getElementById('st-preco').value) || 0;
-  const ipi   = parseFloat(document.getElementById('st-ipi').value)   || 0;
-  const icmsInter = parseFloat(document.getElementById('st-icms-inter').value) || 0;
-  const mvaOrig = parseFloat(document.getElementById('st-mva').value) || 0;
-  const aliqInterna = parseFloat(document.getElementById('st-aliq-interna').value) || 0;
-  const usaMvaAj = document.getElementById('st-usa-mva-aj').value === 'sim';
-  const margemDist = parseFloat(document.getElementById('st-margem-dist').value) || 0;
-  const margemVar  = parseFloat(document.getElementById('st-margem-var').value)  || 0;
-
-  if (preco <= 0) { alert('Informe o preço de venda da indústria.'); return; }
-  if (mvaOrig <= 0) { alert('Informe a MVA do produto.'); return; }
-  if (aliqInterna <= 0) { alert('Informe a alíquota interna do estado destino.'); return; }
-
-  // MVA ajustada
-  const mvaAj = usaMvaAj
-    ? ((1 + mvaOrig/100) * (1 - icmsInter/100) / (1 - aliqInterna/100) - 1) * 100
-    : mvaOrig;
-
-  const vIPI = preco * ipi / 100;
-  const baseST = (preco + vIPI) * (1 + mvaAj / 100);
-  const icmsSTbruto = baseST * aliqInterna / 100;
-  const icmsProprio = preco * icmsInter / 100;
-  const icmsSTrecolher = Math.max(0, icmsSTbruto - icmsProprio);
-
-  const totalNF = preco + vIPI + icmsSTrecolher;
-  const custoDist = totalNF;
-  const precoVendaDist = preco * (1 + margemDist / 100) + vIPI; // distribuidor sobre o produto
-  const precoVendaVar = precoVendaDist * (1 + margemVar / 100);
-
-  const totalImpostos = vIPI + icmsProprio + icmsSTrecolher;
-  const cargaPerc = precoVendaVar > 0 ? (totalImpostos / precoVendaVar) * 100 : 0;
-
-  const res = document.getElementById('resultado');
-  res.style.display = 'block';
-  res.innerHTML = `
-    <div class="resultado-header">
-      <h4>📊 Resultado — Com Substituição Tributária (ST)</h4>
-      <p style="font-size:.88rem;color:var(--texto2)">ICMS pago antecipadamente pela indústria para toda a cadeia</p>
-    </div>
-
-    <div class="etapas-grid">
-      <div class="etapa-card">
-        <div class="etapa-label">🏭 Preço Saída Indústria</div>
-        <div class="etapa-valor">${fmt(preco)}</div>
-        <div class="etapa-sub">Sem impostos</div>
-      </div>
-      <div class="etapa-card vermelho-borda" style="border-color:#c0392b">
-        <div class="etapa-label">🧾 ICMS-ST Recolhido</div>
-        <div class="etapa-valor" style="color:var(--vermelho)">${fmt(icmsSTrecolher)}</div>
-        <div class="etapa-sub">Pago pela indústria p/ toda a cadeia</div>
-      </div>
-      <div class="etapa-card">
-        <div class="etapa-label">🏪 Preço Venda Distribuidor</div>
-        <div class="etapa-valor">${fmt(precoVendaDist)}</div>
-        <div class="etapa-sub">Sem novo ICMS (já pago via ST)</div>
-      </div>
-      <div class="etapa-card destaque">
-        <div class="etapa-label">🛒 Preço Consumidor Final</div>
-        <div class="etapa-valor">${fmt(precoVendaVar)}</div>
-        <div class="etapa-sub">Varejista + margem ${fmtP(margemVar)}</div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
-      <div>
-        <div class="form-section-title">🏭 Cálculo do ICMS-ST</div>
-        <table class="detalhe-table">
-          <tr><td>Preço do produto</td><td>${fmt(preco)}</td></tr>
-          <tr><td>IPI (${fmtP(ipi)})</td><td>${fmt(vIPI)}</td></tr>
-          <tr><td>MVA original</td><td>${fmtP(mvaOrig)}</td></tr>
-          <tr class="highlight"><td>MVA ${usaMvaAj ? 'ajustada (interestadual)' : 'original'}</td><td>${fmtP(mvaAj)}</td></tr>
-          <tr><td>Base ST = (${fmt(preco)} + ${fmt(vIPI)}) × (1 + ${fmtP(mvaAj)})</td><td>${fmt(baseST)}</td></tr>
-          <tr class="highlight"><td>ICMS ST bruto (${fmtP(aliqInterna)} × ${fmt(baseST)})</td><td>${fmt(icmsSTbruto)}</td></tr>
-          <tr><td>ICMS próprio da operação (${fmtP(icmsInter)})</td><td>− ${fmt(icmsProprio)}</td></tr>
-          <tr class="total"><td>ICMS-ST a recolher</td><td>${fmt(icmsSTrecolher)}</td></tr>
-        </table>
-      </div>
-
-      <div>
-        <div class="form-section-title">🏪 Distribuidor e Varejista (sem ICMS)</div>
-        <table class="detalhe-table">
-          <tr><td>Distribuidor recebe por (produto)</td><td>${fmt(preco)}</td></tr>
-          <tr><td>Distribuidor vende (+ ${fmtP(margemDist)} margem)</td><td>${fmt(precoVendaDist)}</td></tr>
-          <tr><td>ICMS do distribuidor na saída</td><td><strong style="color:var(--verde)">R$ 0,00</strong> (já pago via ST)</td></tr>
-          <tr><td>Varejista vende (+ ${fmtP(margemVar)} margem)</td><td>${fmt(precoVendaVar)}</td></tr>
-          <tr><td>ICMS do varejista na saída</td><td><strong style="color:var(--verde)">R$ 0,00</strong> (já pago via ST)</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="carga-total">
-      <div class="carga-item">
-        <div class="carga-val">${fmt(precoVendaVar)}</div>
-        <div class="carga-desc">Preço ao Consumidor</div>
-      </div>
-      <div class="carga-item">
-        <div class="carga-val">${fmt(totalImpostos)}</div>
-        <div class="carga-desc">Total Impostos (IPI + ICMS)</div>
-      </div>
-      <div class="carga-item">
-        <div class="carga-val">${fmtP(cargaPerc)}</div>
-        <div class="carga-desc">Carga Tributária Estimada</div>
-      </div>
-    </div>
-
-    <div class="explicacao-box" style="margin-top:16px">
-      <h5>Como funciona o cálculo da ST</h5>
-      <ol>
-        <li><strong>MVA Ajustada</strong> (obrigatória em operações interestaduais) = [(1 + ${fmtP(mvaOrig)}) × (1 − ${fmtP(icmsInter)}) / (1 − ${fmtP(aliqInterna)})] − 1 = <strong>${fmtP(mvaAj)}</strong></li>
-        <li><strong>Base de cálculo ST</strong> = (produto ${fmt(preco)} + IPI ${fmt(vIPI)}) × (1 + MVA ${fmtP(mvaAj)}) = <strong>${fmt(baseST)}</strong></li>
-        <li><strong>ICMS ST bruto</strong> = ${fmt(baseST)} × ${fmtP(aliqInterna)} (alíq. interna destino) = ${fmt(icmsSTbruto)}</li>
-        <li><strong>Desconta ICMS próprio</strong> = ${fmt(icmsSTbruto)} − ${fmt(icmsProprio)} = <strong>ICMS-ST: ${fmt(icmsSTrecolher)}</strong></li>
-        <li>Distribuidor e varejista <strong>não recolhem ICMS</strong> — o imposto de toda a cadeia já foi pago pela indústria</li>
-      </ol>
-    </div>
-  `;
-  res.scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 // ══════════ UI ══════════
 function mudarAba(btn, panelId) {
   const container = btn.closest('.tabs').parentElement;
@@ -1516,23 +961,19 @@ function mudarAba(btn, panelId) {
   btn.classList.add('ativo');
   const panel = document.getElementById(panelId);
   if (panel) panel.classList.add('ativo');
-  if (panelId === 'calc-simples' || panelId === 'calc-st') {
-    document.getElementById('resultado').style.display = 'none';
-  }
 }
 
 function limparCalc(tipo) {
-  document.getElementById('resultado').style.display = 'none';
-  if (tipo === 'simples') {
-    ['s-preco','s-ipi','s-icms-op','s-piscofins','s-margem-dist','s-icms-dist','s-piscofins-dist','s-margem-var','s-icms-var']
-      .forEach(id => { const el = document.getElementById(id); if(el){el.value='';delete el.dataset.manual;} });
-    document.getElementById('s-uf-origem').value = '';
-    document.getElementById('s-uf-destino').value = '';
-  } else {
-    ['st-preco','st-ipi','st-icms-inter','st-mva','st-aliq-interna','st-margem-dist','st-margem-var']
-      .forEach(id => { const el = document.getElementById(id); if(el){el.value='';delete el.dataset.manual;} });
-    document.getElementById('st-uf-origem').value = '';
-    document.getElementById('st-uf-destino').value = '';
+  if (tipo === 'ext') {
+    extProd = null;
+    ['ext-busca','ext-ncm','ext-estado','ext-margem','ext-preco',
+     'ext-icms-ent','ext-icms-sai','ext-piscofins'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.value = ''; delete el.dataset.manual; }
+    });
+    const strip = document.getElementById('ext-aliq-strip');
+    if (strip) { strip.innerHTML = ''; strip.classList.add('hidden'); }
+    document.getElementById('resultado-ext').innerHTML = '';
   }
 }
 
@@ -1597,8 +1038,7 @@ function extPorNCM(ncm) {
 
 function extAutoAliq() {
   const estado = document.getElementById('ext-estado').value;
-  const regime = document.getElementById('ext-regime').value;
-  const pisTaxa = regime === 'real' ? 0.0925 : 0.0365;
+  const pisTaxa = 0.0925;
 
   let icmsEnt = 0, icmsSai = 0, pisTaxaFinal = pisTaxa;
 
@@ -1704,7 +1144,7 @@ initSelects();
   });
 })();
 initTabela();
-calcAutoAliq('s');
+
 </script>
 </body>
 </html>
