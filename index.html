@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reforma Tributária 2026 | M. Ferretti Distribuidora</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --azul:#1e2a8a;--azul2:#2B2FA8;--azul3:#3d5af1;
+  --verde:#1b7a3f;--amarelo:#e6900a;--vermelho:#c0392b;
+  --cinza1:#f5f7fa;--cinza2:#e8ecf2;--cinza3:#ccd2de;
+  --texto:#1a1a2e;--texto2:#4a4a6a;--branco:#fff;
+  --sombra:0 2px 12px rgba(30,42,138,.13);
+  --radius:12px;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--cinza1);color:var(--texto);line-height:1.6}
+a{color:var(--azul3);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-weight:700;line-height:1.3}
+
+/* ── HEADER ── */
+header{background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 60%,var(--azul3) 100%);color:#fff;padding:0}
+.header-inner{max-width:1100px;margin:0 auto;padding:28px 24px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.header-logo{font-size:1.35rem;font-weight:800;letter-spacing:.5px;opacity:.95}
+.header-logo span{opacity:.7;font-weight:400;font-size:.95rem;display:block;margin-top:2px}
+.header-badge{margin-left:auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+  border-radius:20px;padding:6px 16px;font-size:.82rem;font-weight:600;white-space:nowrap}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--azul) 0%,var(--azul2) 70%,#5568f5 100%);
+  color:#fff;padding:56px 24px 48px;text-align:center}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hero p{font-size:1.1rem;opacity:.9;max-width:680px;margin:0 auto 28px}
+.hero-chips{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);
+  border-radius:20px;padding:7px 18px;font-size:.85rem;font-weight:600;cursor:pointer;
+  transition:background .2s}
+.chip:hover{background:rgba(255,255,255,.3)}
+
+/* ── CONTAINER ── */
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:52px 0}
+.section-title{font-size:1.6rem;color:var(--azul);margin-bottom:8px}
+.section-sub{color:var(--texto2);margin-bottom:32px;font-size:1rem}
+
+/* ── ALERTA ── */
+.alerta-destaque{background:#fff3cd;border:2px solid #e6900a;border-radius:var(--radius);
+  padding:20px 24px;display:flex;gap:16px;align-items:flex-start;margin-bottom:40px}
+.alerta-destaque .icon{font-size:2rem;flex-shrink:0}
+.alerta-destaque strong{font-size:1.05rem;color:#7a4500}
+.alerta-destaque p{margin-top:4px;color:#5c3300;font-size:.93rem}
+
+/* ── CARDS RESUMO ── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:var(--branco);border-radius:var(--radius);padding:24px;box-shadow:var(--sombra);border-top:4px solid var(--azul2)}
+.card.verde{border-top-color:var(--verde)}
+.card.amarelo{border-top-color:var(--amarelo)}
+.card.vermelho{border-top-color:var(--vermelho)}
+.card-icon{font-size:2.2rem;margin-bottom:12px}
+.card h3{font-size:1.05rem;margin-bottom:8px;color:var(--azul)}
+.card p{font-size:.92rem;color:var(--texto2);line-height:1.65}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:10px}
+.tag.novo{background:#dbeafe;color:#1e40af}
+.tag.mudou{background:#fef9c3;color:#854d0e}
+.tag.atencao{background:#fee2e2;color:#991b1b}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:3px;background:var(--cinza3)}
+.tl-item{position:relative;margin-bottom:32px}
+.tl-dot{position:absolute;left:-32px;top:4px;width:18px;height:18px;border-radius:50%;border:3px solid var(--branco);box-shadow:0 0 0 2px var(--azul2)}
+.tl-dot.ativo{background:var(--vermelho);box-shadow:0 0 0 3px rgba(192,57,43,.35)}
+.tl-dot.hoje{background:var(--amarelo)}
+.tl-dot.futuro{background:var(--cinza3)}
+.tl-dot.concluido{background:var(--verde)}
+.tl-data{font-size:.8rem;font-weight:700;color:var(--texto2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.tl-titulo{font-size:1rem;font-weight:700;color:var(--texto);margin-bottom:6px}
+.tl-desc{font-size:.9rem;color:var(--texto2)}
+.tl-lei{font-size:.78rem;color:var(--azul3);margin-top:6px;font-style:italic}
+
+/* ── ABAS ── */
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:24px;border-bottom:2px solid var(--cinza3)}
+.tab-btn{background:none;border:none;padding:10px 20px;font-size:.93rem;font-weight:600;
+  color:var(--texto2);cursor:pointer;border-radius:8px 8px 0 0;transition:all .2s;position:relative;bottom:-2px}
+.tab-btn.ativo{color:var(--azul2);border-bottom:3px solid var(--azul2);background:var(--branco)}
+.tab-btn:hover:not(.ativo){background:var(--cinza2)}
+.tab-panel{display:none}
+.tab-panel.ativo{display:block}
+
+/* ── TABELAS ── */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--sombra)}
+table{width:100%;border-collapse:collapse;background:var(--branco);font-size:.88rem}
+thead{background:var(--azul);color:#fff}
+th{padding:12px 16px;text-align:left;font-weight:600;white-space:nowrap}
+td{padding:10px 16px;border-bottom:1px solid var(--cinza2)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--cinza1)}
+.badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.75rem;font-weight:700}
+.badge.s{background:#dcfce7;color:#166534}
+.badge.se{background:#dbeafe;color:#1e40af}
+.badge.n{background:#fef9c3;color:#854d0e}
+.badge.ne{background:#fee2e2;color:#991b1b}
+.badge.co{background:#f3e8ff;color:#6b21a8}
+
+/* ── CALCULADORA ── */
+.calc-container{background:var(--branco);border-radius:var(--radius);box-shadow:var(--sombra);overflow:hidden}
+.calc-header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:24px 28px}
+.calc-header h3{font-size:1.25rem;margin-bottom:4px}
+.calc-header p{opacity:.85;font-size:.9rem}
+.calc-body{padding:28px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:.83rem;font-weight:600;color:var(--texto2);text-transform:uppercase;letter-spacing:.4px}
+.form-group input,.form-group select{
+  border:1.5px solid var(--cinza3);border-radius:8px;padding:10px 14px;font-size:.95rem;
+  color:var(--texto);background:var(--branco);transition:border .2s;font-family:inherit}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(43,47,168,.1)}
+.form-group small{font-size:.78rem;color:#888}
+.form-section-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--azul2);margin:20px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--cinza2)}
+.btn-calcular{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;
+  border:none;border-radius:10px;padding:14px 36px;font-size:1rem;font-weight:700;
+  cursor:pointer;width:100%;margin-top:20px;transition:opacity .2s;letter-spacing:.3px}
+.btn-calcular:hover{opacity:.9}
+.btn-limpar{background:none;border:1.5px solid var(--cinza3);color:var(--texto2);
+  border-radius:10px;padding:10px 24px;font-size:.9rem;font-weight:600;cursor:pointer;margin-top:8px}
+
+/* ── RESULTADO CALCULADORA ── */
+#resultado{display:none;margin-top:28px}
+.resultado-header{background:var(--cinza1);border-radius:10px;padding:16px 20px;margin-bottom:20px;
+  border-left:4px solid var(--azul2)}
+.resultado-header h4{color:var(--azul);margin-bottom:4px}
+.etapas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.etapa-card{border-radius:10px;padding:16px;border:1.5px solid var(--cinza3);background:var(--branco);position:relative}
+.etapa-card .etapa-label{font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--texto2);letter-spacing:.5px}
+.etapa-card .etapa-valor{font-size:1.5rem;font-weight:800;color:var(--azul);margin:4px 0}
+.etapa-card .etapa-sub{font-size:.78rem;color:var(--texto2)}
+.etapa-card.destaque{border-color:var(--azul2);background:linear-gradient(135deg,#f0f4ff,#e8eeff)}
+.detalhe-table{width:100%;font-size:.88rem;border-collapse:collapse}
+.detalhe-table td{padding:8px 12px;border-bottom:1px solid var(--cinza2)}
+.detalhe-table td:first-child{color:var(--texto2);width:60%}
+.detalhe-table td:last-child{font-weight:600;text-align:right}
+.detalhe-table tr.total td{border-top:2px solid var(--azul2);font-weight:700;color:var(--azul);font-size:.95rem}
+.detalhe-table tr.highlight td{background:#f0f4ff}
+.explicacao-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;
+  padding:14px 18px;margin-top:16px;font-size:.85rem;color:#0c4a6e;line-height:1.7}
+.explicacao-box h5{color:#0369a1;margin-bottom:8px;font-size:.88rem;text-transform:uppercase;letter-spacing:.5px}
+.explicacao-box ol{padding-left:18px}
+.explicacao-box li{margin-bottom:6px}
+.carga-total{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;
+  border-radius:10px;padding:20px 24px;margin-top:20px;display:grid;
+  grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center}
+.carga-item .carga-val{font-size:1.6rem;font-weight:800}
+.carga-item .carga-desc{font-size:.78rem;opacity:.8;margin-top:2px}
+
+/* ── CHECKBOX/TOGGLE ── */
+.toggle-group{display:flex;align-items:center;gap:12px;margin:16px 0}
+.toggle{position:relative;width:48px;height:26px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--cinza3);border-radius:26px;cursor:pointer;transition:.3s}
+.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:4px;bottom:4px;
+  background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.toggle-slider{background:var(--azul2)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(22px)}
+.toggle-label{font-size:.9rem;color:var(--texto);font-weight:500}
+
+/* ── GLOSSÁRIO ── */
+.glossario{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.gloss-item{background:var(--branco);border-radius:10px;padding:18px 20px;box-shadow:var(--sombra)}
+.gloss-item dt{font-weight:700;color:var(--azul2);margin-bottom:4px;font-size:.95rem}
+.gloss-item dd{font-size:.87rem;color:var(--texto2);line-height:1.6}
+
+/* ── REFERÊNCIAS ── */
+.refs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.ref-card{background:var(--branco);border-radius:10px;padding:18px 20px;box-shadow:var(--sombra);
+  border-left:3px solid var(--azul2)}
+.ref-card .ref-tipo{font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.7px;color:var(--azul3);margin-bottom:6px}
+.ref-card .ref-titulo{font-size:.93rem;font-weight:700;color:var(--texto);margin-bottom:4px}
+.ref-card .ref-desc{font-size:.82rem;color:var(--texto2)}
+.ref-card a{font-size:.8rem;margin-top:8px;display:inline-block}
+
+/* ── FOOTER ── */
+footer{background:var(--azul);color:rgba(255,255,255,.8);text-align:center;
+  padding:24px;font-size:.82rem;margin-top:20px}
+footer strong{color:#fff}
+
+/* ── UTIL ── */
+.hidden{display:none!important}
+.flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.mt8{margin-top:8px}
+.mt16{margin-top:16px}
+.mt24{margin-top:24px}
+.color-verde{color:var(--verde)}
+.color-amarelo{color:var(--amarelo)}
+.color-vermelho{color:var(--vermelho)}
+.color-azul{color:var(--azul2)}
+.separator{height:1px;background:var(--cinza2);margin:32px 0}
+.pill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700}
+.pill.verde{background:#dcfce7;color:#166534}
+.pill.amarelo{background:#fef9c3;color:#854d0e}
+.pill.vermelho{background:#fee2e2;color:#991b1b}
+.pill.azul{background:#dbeafe;color:#1e40af}
+
+@media(max-width:640px){
+  .header-inner{padding:20px 16px}
+  .hero{padding:36px 16px}
+  .container{padding:0 16px}
+  section{padding:36px 0}
+  .carga-total{grid-template-columns:1fr}
+  .etapas-grid{grid-template-columns:1fr 1fr}
+  .tabs{gap:0}
+  .tab-btn{padding:9px 12px;font-size:.83rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="header-inner">
+    <div class="header-logo">
+      M. Ferretti Distribuidora
+      <span>Portal de Informações Tributárias</span>
+    </div>
+    <div class="header-badge">⚡ Atualizado: Julho 2026</div>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <h1>Reforma Tributária 2026<br>O que muda agora?</h1>
+  <p>Entenda em linguagem simples todas as mudanças tributárias que estão acontecendo, calcule impostos de forma precisa e saiba como cada tributo impacta o preço do produto.</p>
+  <div class="hero-chips">
+    <span class="chip" onclick="scrollTo('#resumo')">📋 Resumo Rápido</span>
+    <span class="chip" onclick="scrollTo('#timeline')">📅 Timeline</span>
+    <span class="chip" onclick="scrollTo('#calculadora')">🧮 Calculadora</span>
+    <span class="chip" onclick="scrollTo('#tabela-icms')">📊 Tabela ICMS</span>
+    <span class="chip" onclick="scrollTo('#referencias')">📄 Leis</span>
+  </div>
+</div>
+
+<!-- ══════════ RESUMO PARA LEIGOS ══════════ -->
+<section id="resumo" style="background:var(--branco)">
+<div class="container">
+  <h2 class="section-title">O que está mudando — em linguagem simples</h2>
+  <p class="section-sub">Sem juridiquês. Só o que você precisa saber.</p>
+
+  <div class="alerta-destaque">
+    <div class="icon">🚨</div>
+    <div>
+      <strong>Marco crítico: 03 de agosto de 2026</strong>
+      <p>A partir desta data, toda nota fiscal eletrônica (NF-e / NFC-e) emitida por empresas do Lucro Real ou Presumido <strong>deve obrigatoriamente ter novos campos preenchidos</strong> — os do IBS e CBS. Notas sem esses campos serão <strong>rejeitadas automaticamente pela SEFAZ</strong>. Seu sistema de emissão precisa estar atualizado.</p>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🧱</div>
+      <h3>O Brasil está trocando os impostos</h3>
+      <p>Pense assim: hoje existem vários "pedágios" na estrada do produto — IPI, ICMS, PIS, COFINS, ISS. O governo está construindo uma estrada nova com só 3 pedágios (CBS, IBS e IS). A troca será gradual até 2033.</p>
+      <span class="tag novo">Informação geral</span>
+    </div>
+    <div class="card amarelo">
+      <div class="card-icon">📝</div>
+      <h3>Em 2026 você não paga o novo imposto, mas precisa informá-lo</h3>
+      <p>Os novos tributos (CBS e IBS) existem na nota fiscal em 2026, mas com <strong>alíquota teste de 1%</strong> — e sem obrigação de pagar. É como um ensaio geral. O que é obrigatório é preencher os campos corretamente na NF-e a partir de 03/08.</p>
+      <span class="tag mudou">Atenção agora!</span>
+    </div>
+    <div class="card verde">
+      <div class="card-icon">💰</div>
+      <h3>Os impostos de hoje continuam valendo normalmente</h3>
+      <p>ICMS, PIS, COFINS, IPI — todos continuam sendo cobrados normalmente em 2026. A reforma acontece em paralelo. Você paga os de sempre e só informa os novos na nota.</p>
+      <span class="tag novo">Atual</span>
+    </div>
+    <div class="card vermelho">
+      <div class="card-icon">⚙️</div>
+      <h3>Seu sistema de NF-e precisa ser atualizado urgente</h3>
+      <p>A Nota Técnica 2025.002 adicionou novos campos obrigatórios ao XML da NF-e. Desde <strong>1º de julho de 2026</strong> o ambiente de homologação já exige esses campos. Em <strong>03/08/2026</strong> entra em produção. Fale com seu fornecedor de sistema.</p>
+      <span class="tag atencao">Urgente</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺️</div>
+      <h3>O caminho até 2033</h3>
+      <p>2026: ensaio. 2027: CBS substitui PIS/COFINS de vez. 2029–2032: ICMS e ISS vão sendo reduzidos gradualmente e substituídos pelo IBS. 2033: sistema novo funcionando 100%.</p>
+      <span class="tag novo">Futuro</span>
+    </div>
+    <div class="card amarelo">
+      <div class="card-icon">🏬</div>
+      <h3>Para distribuidores e atacadistas</h3>
+      <p>Na prática em 2026: nada muda no seu fluxo de caixa. Mas <strong>em 2027</strong> começa uma grande mudança: o crédito de PIS/COFINS que você usa hoje será substituído pelo crédito de CBS, funcionando de forma diferente (não-cumulativo universal).</p>
+      <span class="tag mudou">Fique de olho</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ TIMELINE ══════════ -->
+<section id="timeline">
+<div class="container">
+  <h2 class="section-title">📅 Linha do Tempo da Reforma</h2>
+  <p class="section-sub">O que já aconteceu e o que vem por aí</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot concluido"></div>
+      <div class="tl-data">Dezembro 2023</div>
+      <div class="tl-titulo">✅ EC 132/2023 — A Reforma foi aprovada</div>
+      <div class="tl-desc">A Emenda Constitucional 132 aprovou a Reforma Tributária do Consumo, criando o IBS, CBS e IS e definindo o cronograma de transição gradual até 2033.</div>
+      <div class="tl-lei">Base legal: EC nº 132, de 20/12/2023 (DOU 20/12/2023)</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot concluido"></div>
+      <div class="tl-data">Janeiro 2025</div>
+      <div class="tl-titulo">✅ LC 214/2025 — As regras foram definidas</div>
+      <div class="tl-desc">A Lei Complementar 214 regulamentou o CBS, IBS e IS: alíquotas, base de cálculo, créditos, regimes específicos, isenções e o cronograma de transição detalhado.</div>
+      <div class="tl-lei">Base legal: LC nº 214, de 16/01/2025 (DOU 16/01/2025)</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot concluido"></div>
+      <div class="tl-data">1º de julho de 2026</div>
+      <div class="tl-titulo">✅ Campos IBS/CBS obrigatórios em homologação</div>
+      <div class="tl-desc">Desde 1º/07/2026 os novos campos da Nota Técnica 2025.002 já são obrigatórios no ambiente de testes (homologação) das SEFAZ. Empresas e sistemas iniciam a adequação.</div>
+      <div class="tl-lei">Base legal: NT 2025.002 — SEFAZ Nacional</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot ativo"></div>
+      <div class="tl-data">⚡ 03 de agosto de 2026 — AGORA</div>
+      <div class="tl-titulo color-vermelho">🚨 Campos IBS/CBS obrigatórios em PRODUÇÃO</div>
+      <div class="tl-desc">A partir de 03/08/2026, NF-e e NFC-e sem os campos do IBS e CBS serão rejeitadas automaticamente pela SEFAZ. Aplica-se ao regime regular (Lucro Real e Presumido). Alíquota de teste: CBS 0,9% + IBS 0,1% = <strong>1% total</strong>. Não há recolhimento em 2026.</div>
+      <div class="tl-lei">Base legal: Comunicado Conjunto RFB/CGIBS (dez/2025) + NT 2025.002</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot hoje"></div>
+      <div class="tl-data">4 de janeiro de 2027</div>
+      <div class="tl-titulo">⏳ Simples Nacional e MEI entram na obrigação</div>
+      <div class="tl-desc">Até 04/01/2027 as empresas do Simples Nacional e MEI também precisarão preencher os campos do IBS/CBS nas notas fiscais.</div>
+      <div class="tl-lei">Base legal: NT 2025.002 — Prazo estendido por regime</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot futuro"></div>
+      <div class="tl-data">1º de janeiro de 2027</div>
+      <div class="tl-titulo">⏳ CBS substitui PIS e COFINS definitivamente</div>
+      <div class="tl-desc">A partir de 2027, a CBS (federal) começa a ser cobrada de forma permanente e em valor real, substituindo gradualmente o PIS e COFINS. O Imposto Seletivo (IS) também entra em vigor sobre produtos selecionados.</div>
+      <div class="tl-lei">Base legal: LC 214/2025, Art. 337</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot futuro"></div>
+      <div class="tl-data">2029 a 2032</div>
+      <div class="tl-titulo">⏳ Transição gradual: ICMS e ISS caem, IBS sobe</div>
+      <div class="tl-desc">O ICMS é reduzido 10 pontos percentuais por ano e o IBS cresce proporcionalmente. Em 2032, o ICMS cai para zero e o IBS atinge sua alíquota plena de referência (17,7%).</div>
+      <div class="tl-lei">Base legal: EC 132/2023 + LC 214/2025, Arts. 348–359</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot futuro"></div>
+      <div class="tl-data">1º de janeiro de 2033</div>
+      <div class="tl-titulo">⏳ Sistema tributário novo completamente em vigor</div>
+      <div class="tl-desc">CBS (8,8% fed.) + IBS (17,7% estados+municípios) = 26,5% de alíquota de referência. ICMS e ISS extintos. Sistema completamente unificado e não-cumulativo. Alíquotas exatas definidas pelo Senado com base em metas de arrecadação.</div>
+      <div class="tl-lei">Base legal: LC 68/2024 (alíquotas de referência)</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ DETALHES TÉCNICOS ══════════ -->
+<section style="background:var(--branco)" id="tributos">
+<div class="container">
+  <h2 class="section-title">📚 Detalhes por Tributo</h2>
+  <p class="section-sub">Para quem precisa de informação técnica e precisa</p>
+
+  <div class="tabs">
+    <button class="tab-btn ativo" onclick="mudarAba(this,'tab-icms')">ICMS</button>
+    <button class="tab-btn" onclick="mudarAba(this,'tab-pis')">PIS / COFINS</button>
+    <button class="tab-btn" onclick="mudarAba(this,'tab-ipi')">IPI</button>
+    <button class="tab-btn" onclick="mudarAba(this,'tab-cbs')">CBS / IBS (novos)</button>
+    <button class="tab-btn" onclick="mudarAba(this,'tab-is')">Imposto Seletivo</button>
+    <button class="tab-btn" onclick="mudarAba(this,'tab-st')">Subst. Tributária</button>
+  </div>
+
+  <!-- ICMS -->
+  <div class="tab-panel ativo" id="tab-icms">
+    <div class="cards-grid" style="margin-bottom:24px">
+      <div class="card">
+        <h3>O que é o ICMS?</h3>
+        <p>Imposto estadual que incide sobre circulação de mercadorias. Cada estado tem sua própria alíquota interna. Em operações entre estados, a alíquota é menor (interestadual).</p>
+      </div>
+      <div class="card verde">
+        <h3>Alíquotas Interestaduais</h3>
+        <p><strong>7%</strong> — Sul/Sudeste (excl. ES) vendendo para Norte, Nordeste, Centro-Oeste ou ES.<br>
+        <strong>12%</strong> — Demais operações interestaduais.<br>
+        <strong>4%</strong> — Produtos importados ou com ≥40% de conteúdo importado.</p>
+        <div class="mt8"><span class="pill azul">Res. Senado 22/1989</span></div>
+      </div>
+      <div class="card amarelo">
+        <h3>DIFAL</h3>
+        <p>Diferencial de Alíquota: quando a alíquota interna do destino é maior que a interestadual, a diferença pertence ao estado destino. Desde 2023, 100% vai para o estado de destino.</p>
+        <div class="mt8"><span class="pill amarelo">EC 87/2015 + LC 190/2022</span></div>
+      </div>
+    </div>
+    <p style="font-size:.88rem;color:var(--texto2);margin-bottom:12px">Consulte a <strong>Tabela ICMS por estado</strong> mais abaixo nesta página para ver as alíquotas internas de todos os 27 estados.</p>
+  </div>
+
+  <!-- PIS / COFINS -->
+  <div class="tab-panel" id="tab-pis">
+    <div class="cards-grid" style="margin-bottom:24px">
+      <div class="card">
+        <h3>Regime Cumulativo (Lucro Presumido / Simples*)</h3>
+        <p>PIS: <strong>0,65%</strong><br>COFINS: <strong>3,00%</strong><br>Total: <strong>3,65%</strong> sobre o faturamento bruto.<br><br>Não há aproveitamento de créditos. Mais simples, menos flexível.</p>
+        <div class="mt8"><span class="pill azul">Lei 9.718/1998</span></div>
+      </div>
+      <div class="card verde">
+        <h3>Regime Não-Cumulativo (Lucro Real)</h3>
+        <p>PIS: <strong>1,65%</strong><br>COFINS: <strong>7,60%</strong><br>Total: <strong>9,25%</strong> sobre receita bruta.<br><br>Permite descontar créditos nas entradas (compras, insumos, energia, etc). O líquido a pagar é menor.</p>
+        <div class="mt8"><span class="pill azul">Leis 10.637/2002 e 10.833/2003</span></div>
+      </div>
+      <div class="card vermelho">
+        <h3>⚠️ Mudança: Alíquota Zero e Isenções</h3>
+        <p>A partir de <strong>1º de abril de 2026</strong>, produtos anteriormente com alíquota zero passaram a recolher <strong>10% da alíquota padrão</strong> do regime. Consulte a Instrução Normativa RFB nº 2305/2025.</p>
+        <div class="mt8"><span class="pill vermelho">IN RFB 2305/2025</span></div>
+      </div>
+    </div>
+    <div class="explicacao-box">
+      <h5>Como calcular o PIS/COFINS a pagar (Lucro Real)</h5>
+      <ol>
+        <li>Calcule o débito: Receita bruta × 9,25%</li>
+        <li>Calcule os créditos: somas das compras de insumos/mercadorias × 9,25%</li>
+        <li>PIS/COFINS a pagar = Débito − Créditos</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- IPI -->
+  <div class="tab-panel" id="tab-ipi">
+    <div class="cards-grid">
+      <div class="card">
+        <h3>O que é o IPI?</h3>
+        <p>Imposto federal sobre produtos industrializados. Cobrado na saída da fábrica/indústria. Destacado na NF-e, <strong>não compõe a base de cálculo do ICMS</strong> nas operações entre contribuintes (conforme o caso).</p>
+        <div class="mt8"><span class="pill azul">RIPI — Decreto 7.212/2010</span></div>
+      </div>
+      <div class="card amarelo">
+        <h3>Alíquotas</h3>
+        <p>Definidas pela TIPI (Tabela de Incidência do IPI) por NCM. Exemplos comuns:<br>
+        • Cosméticos/higiene: <strong>5% a 12%</strong><br>
+        • Alimentos processados: <strong>0%</strong><br>
+        • Bebidas alcoólicas: <strong>40% a 330%</strong><br>
+        • Têxteis: <strong>0% a 12%</strong></p>
+        <div class="mt8"><span class="pill amarelo">Decreto 11.158/2022 (TIPI)</span></div>
+      </div>
+      <div class="card verde">
+        <h3>IPI na cadeia de distribuição</h3>
+        <p>Distribuidores e atacadistas que revendem sem industrializar: <strong>não precisam destacar IPI</strong> na saída (geralmente imunes). O IPI fica "embutido" no custo de aquisição para fins de ICMS.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CBS / IBS -->
+  <div class="tab-panel" id="tab-cbs">
+    <div class="cards-grid">
+      <div class="card azul-borda" style="border-top:4px solid var(--azul2)">
+        <h3>CBS — Contribuição sobre Bens e Serviços</h3>
+        <p>Substitui o PIS e COFINS. É federal. Funciona como um IVA (imposto sobre valor agregado) — você paga sobre a venda e desconta o que pagou nas compras.</p>
+        <p class="mt8"><strong>Alíquota de teste 2026:</strong> 0,9%<br>
+        <strong>Alíquota plena (a partir de 2027):</strong> ≈ 8,8%</p>
+        <div class="mt8"><span class="pill azul">LC 214/2025 + LC 68/2024</span></div>
+      </div>
+      <div class="card" style="border-top:4px solid #6b21a8">
+        <h3>IBS — Imposto sobre Bens e Serviços</h3>
+        <p>Substitui o ICMS e o ISS. É estadual + municipal, gerido pelo Comitê Gestor do IBS (CGIBS). Também funciona como IVA.</p>
+        <p class="mt8"><strong>Alíquota de teste 2026:</strong> 0,1% (0,05% estado + 0,05% município)<br>
+        <strong>Alíquota plena (a partir de 2033):</strong> ≈ 17,7%</p>
+        <div class="mt8"><span class="pill" style="background:#f3e8ff;color:#6b21a8">LC 214/2025</span></div>
+      </div>
+      <div class="card vermelho">
+        <h3>O que muda para a NF-e em 03/08/2026</h3>
+        <p>Campos obrigatórios novos no XML:<br>
+        • <strong>Grupo UB</strong>: dados do IBS<br>
+        • <strong>Grupo W03</strong>: dados da CBS<br>
+        • <strong>CST-IBS/CBS</strong>: código da situação tributária<br>
+        • <strong>cClassTrib</strong>: código de classificação tributária</p>
+        <div class="mt8"><span class="pill vermelho">NT 2025.002</span></div>
+      </div>
+    </div>
+    <div class="alerta-destaque mt24">
+      <div class="icon">💡</div>
+      <div>
+        <strong>Por que não haverá pagamento em 2026?</strong>
+        <p>A LC 214/2025 prevê expressamente que os contribuintes ficam dispensados do recolhimento do CBS e IBS em 2026, desde que cumpram corretamente as obrigações acessórias (preencher os campos na NF-e). É um ano de adaptação e testes tecnológicos, sem impacto no caixa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IS -->
+  <div class="tab-panel" id="tab-is">
+    <div class="alerta-destaque">
+      <div class="icon">📅</div>
+      <div>
+        <strong>Imposto Seletivo ainda não vigora — entra em 2027</strong>
+        <p>O IS não é cobrado em 2026. As alíquotas exatas serão definidas em lei específica antes de 2027.</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>O que é o Imposto Seletivo?</h3>
+        <p>Novo imposto criado pela EC 132/2023 para desestimular o consumo de produtos prejudiciais à saúde ou ao meio ambiente. Incide em cascata sobre CBS+IBS.</p>
+      </div>
+      <div class="card vermelho">
+        <h3>Produtos sujeitos ao IS</h3>
+        <p>• Veículos (excl. ônibus/caminhões)<br>
+        • Embarcações de lazer<br>
+        • Aeronaves privadas<br>
+        • Bebidas alcoólicas<br>
+        • Bebidas açucaradas<br>
+        • Tabaco e derivados<br>
+        • Produtos de mineração<br>
+        • Produtos prejudiciais ao meio ambiente</p>
+        <div class="mt8"><span class="pill vermelho">EC 132/2023, Art. 153, VIII</span></div>
+      </div>
+      <div class="card amarelo">
+        <h3>Alíquotas previstas</h3>
+        <p>Ainda não fixadas definitivamente. A EC limita a alíquota máxima com base no produto. Estimativas:<br>
+        • Tabaco: até 100%<br>
+        • Bebidas alcoólicas: 20% a 100%<br>
+        • Veículos: 2% a 25% (conforme emissão CO₂)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ST -->
+  <div class="tab-panel" id="tab-st">
+    <div class="cards-grid" style="margin-bottom:24px">
+      <div class="card">
+        <h3>O que é Substituição Tributária (ST)?</h3>
+        <p>Mecanismo onde a indústria/importador recolhe o ICMS de TODA a cadeia (atacado + varejo) antecipadamente. O distribuidor e o varejista não recolhem mais ICMS ao vender — já foi pago na origem.</p>
+      </div>
+      <div class="card verde">
+        <h3>MVA — Margem de Valor Agregado</h3>
+        <p>Percentual estimado de margem que a cadeia vai agregar após a indústria. Definido por convênio CONFAZ ou por protocolo entre estados. Existe MVA original (operação interna) e MVA ajustada (interestadual).</p>
+        <div class="mt8"><span class="pill verde">CONFAZ — Convênios/Protocolos</span></div>
+      </div>
+      <div class="card amarelo">
+        <h3>Mudança 2026: SP removeu 130 itens</h3>
+        <p>São Paulo excluiu 130 produtos de 12 setores do regime de ST a partir de 01/01/2026, preparando a transição para o novo sistema (que não prevê ST). Verifique se seu produto foi afetado.</p>
+        <div class="mt8"><span class="pill amarelo">Dec. Est. SP 68.359/2023</span></div>
+      </div>
+    </div>
+    <div class="explicacao-box">
+      <h5>Fórmula do ICMS-ST (use a Calculadora abaixo para calcular automaticamente)</h5>
+      <ol>
+        <li><strong>Base ST</strong> = (Valor do produto + IPI) × (1 + MVA ajustada%)</li>
+        <li><strong>ICMS ST bruto</strong> = Base ST × Alíquota interna do estado destino</li>
+        <li><strong>ICMS ST a recolher</strong> = ICMS ST bruto − ICMS próprio da operação</li>
+      </ol>
+      <br>
+      <strong>MVA Ajustada</strong> (para operações interestaduais):<br>
+      MVA ajustada = [(1 + MVA original) × (1 − Alíq. interestadual) / (1 − Alíq. interna destino)] − 1
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════ CALCULADORA ══════════ -->
+<section id="calculadora">
+<div class="container">
+  <h2 class="section-title">🧮 Calculadora de Impostos</h2>
+  <p class="section-sub">Simule o impacto tributário completo — da saída da indústria até o preço para o consumidor final</p>
+
+  <div class="calc-container">
+    <div class="calc-header">
+      <h3>Simulador Tributário — Cadeia Completa</h3>
+      <p>Preencha todas as informações. Os campos com alíquotas padrão são preenchidos automaticamente ao selecionar o estado.</p>
+    </div>
+    <div class="calc-body">
+
+      <div class="tabs" style="margin-bottom:20px">
+        <button class="tab-btn ativo" onclick="mudarAba(this,'calc-simples')">Sem Substituição Tributária</button>
+        <button class="tab-btn" onclick="mudarAba(this,'calc-st')">Com Substituição Tributária (ST)</button>
+      </div>
+
+      <!-- CALC SIMPLES -->
+      <div class="tab-panel ativo" id="calc-simples">
+        <div class="form-section-title">1. Dados da Operação</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Regime Tributário (Remetente)</label>
+            <select id="s-regime">
+              <option value="real">Lucro Real (PIS 1,65% + COFINS 7,6%)</option>
+              <option value="presumido">Lucro Presumido (PIS 0,65% + COFINS 3%)</option>
+              <option value="simples">Simples Nacional (PIS/COFINS embutido)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>UF de Origem</label>
+            <select id="s-uf-origem" onchange="calcAutoAliq('s')">
+              <option value="">Selecione...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>UF de Destino</label>
+            <select id="s-uf-destino" onchange="calcAutoAliq('s')">
+              <option value="">Selecione...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo de Operação</label>
+            <select id="s-tipo-op" onchange="calcAutoAliq('s')">
+              <option value="interestadual">Interestadual (entre estados)</option>
+              <option value="intraestadual">Intraestadual (mesmo estado)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title">2. Preços e Alíquotas — Indústria</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Preço de Venda da Indústria (R$)</label>
+            <input type="number" id="s-preco" placeholder="Ex: 100,00" step="0.01" min="0">
+            <small>Valor sem impostos, saída de fábrica</small>
+          </div>
+          <div class="form-group">
+            <label>Alíquota IPI (%)</label>
+            <input type="number" id="s-ipi" placeholder="Ex: 5" step="0.01" min="0" value="0">
+            <small>0% se isento ou distribuidor</small>
+          </div>
+          <div class="form-group">
+            <label>Alíquota ICMS Operação (%)</label>
+            <input type="number" id="s-icms-op" placeholder="Preenchido auto" step="0.01" min="0">
+            <small id="s-icms-op-hint">Preenchido ao selecionar UF origem/destino</small>
+          </div>
+          <div class="form-group">
+            <label>Alíquota PIS + COFINS (%)</label>
+            <input type="number" id="s-piscofins" placeholder="Preenchido auto" step="0.01" min="0">
+            <small id="s-piscofins-hint">Preenchido ao selecionar regime</small>
+          </div>
+        </div>
+
+        <div class="form-section-title">3. Distribuidor / Atacado</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Margem do Distribuidor (%)</label>
+            <input type="number" id="s-margem-dist" placeholder="Ex: 20" step="0.01" min="0" value="20">
+          </div>
+          <div class="form-group">
+            <label>ICMS na Saída do Distribuidor (%)</label>
+            <input type="number" id="s-icms-dist" placeholder="Alíq. interna destino" step="0.01" min="0">
+            <small id="s-icms-dist-hint">Alíquota interna do estado de venda</small>
+          </div>
+          <div class="form-group">
+            <label>PIS/COFINS Distribuidor (%)</label>
+            <input type="number" id="s-piscofins-dist" placeholder="Mesmo regime" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div class="form-section-title">4. Varejista</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Margem do Varejista (%)</label>
+            <input type="number" id="s-margem-var" placeholder="Ex: 40" step="0.01" min="0" value="40">
+          </div>
+          <div class="form-group">
+            <label>ICMS na Saída do Varejista (%)</label>
+            <input type="number" id="s-icms-var" placeholder="Alíq. interna" step="0.01" min="0">
+          </div>
+        </div>
+
+        <button class="btn-calcular" onclick="calcSimples()">Calcular Impostos →</button>
+        <button class="btn-limpar" onclick="limparCalc('simples')">Limpar</button>
+      </div>
+
+      <!-- CALC ST -->
+      <div class="tab-panel" id="calc-st">
+        <div class="form-section-title">1. Dados da Operação</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>UF de Origem (Remetente/Indústria)</label>
+            <select id="st-uf-origem" onchange="calcAutoAliq('st')">
+              <option value="">Selecione...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>UF de Destino (Destinatário)</label>
+            <select id="st-uf-destino" onchange="calcAutoAliq('st')">
+              <option value="">Selecione...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Produto importado ou ≥40% conteúdo importado?</label>
+            <select id="st-importado" onchange="calcAutoAliq('st')">
+              <option value="nao">Não — produto nacional</option>
+              <option value="sim">Sim — importado / alto conteúdo importado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title">2. Preços — Saída da Indústria</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Preço de Venda da Indústria (R$)</label>
+            <input type="number" id="st-preco" placeholder="Ex: 100,00" step="0.01" min="0">
+          </div>
+          <div class="form-group">
+            <label>Alíquota IPI (%)</label>
+            <input type="number" id="st-ipi" placeholder="Ex: 5" step="0.01" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label>ICMS Interestadual (%)</label>
+            <input type="number" id="st-icms-inter" placeholder="Preenchido auto" step="0.01" min="0">
+            <small id="st-icms-inter-hint">Preenchido ao selecionar UFs</small>
+          </div>
+        </div>
+
+        <div class="form-section-title">3. Substituição Tributária</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>MVA Original (%)</label>
+            <input type="number" id="st-mva" placeholder="Ex: 30" step="0.01" min="0">
+            <small>Definido por Protocolo/Convênio CONFAZ para o produto</small>
+          </div>
+          <div class="form-group">
+            <label>Alíquota Interna Estado Destino (%)</label>
+            <input type="number" id="st-aliq-interna" placeholder="Preenchido auto" step="0.01" min="0">
+            <small id="st-aliq-hint">Preenchido ao selecionar UF destino</small>
+          </div>
+          <div class="form-group">
+            <label>Usar MVA Ajustada (interestadual)?</label>
+            <select id="st-usa-mva-aj">
+              <option value="sim">Sim — operação interestadual (recomendado)</option>
+              <option value="nao">Não — usar MVA original</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section-title">4. Distribuidor e Varejista</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Margem do Distribuidor (%)</label>
+            <input type="number" id="st-margem-dist" placeholder="Ex: 20" step="0.01" min="0" value="20">
+          </div>
+          <div class="form-group">
+            <label>Margem do Varejista (%)</label>
+            <input type="number" id="st-margem-var" placeholder="Ex: 40" step="0.01" min="0" value="40">
+          </div>
+        </div>
+
+        <button class="btn-calcular" onclick="calcST()">Calcular com ST →</button>
+        <button class="btn-limpar" onclick="limparCalc('st')">Limpar</button>
+      </div>
+
+      <!-- RESULTADO -->
+      <div id="resultado"></div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ TABELA ICMS ══════════ -->
+<section id="tabela-icms" style="background:var(--branco)">
+<div class="container">
+  <h2 class="section-title">📊 Tabela ICMS 2026 — Todos os Estados</h2>
+  <p class="section-sub">Alíquotas vigentes em julho/2026. Alíquotas modais (regra geral) — setores como energia, combustíveis e telecom podem ter alíquotas diferenciadas.</p>
+
+  <div class="table-wrap">
+    <table id="tabela-estados">
+      <thead>
+        <tr>
+          <th>UF</th>
+          <th>Estado</th>
+          <th>Região</th>
+          <th>Alíq. Interna</th>
+          <th>FECP / FCP</th>
+          <th>Total Efetivo</th>
+          <th>Recebe 7% de (Sul/SE)</th>
+          <th>Envia 7% para (N/NE/CO/ES)</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-estados"></tbody>
+    </table>
+  </div>
+
+  <div class="cards-grid" style="margin-top:28px">
+    <div class="card">
+      <h3>Alíquota Interestadual: Quando 7%?</h3>
+      <p>Quando o remetente é de SP, MG, RJ, PR, SC ou RS <strong>E</strong> o destinatário é de AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MT, MS, PA, PB, PE, PI, RN, RO, RR, SE, TO.</p>
+      <div class="mt8"><span class="pill azul">Res. Senado 22/1989</span></div>
+    </div>
+    <div class="card verde">
+      <h3>Alíquota Interestadual: Quando 12%?</h3>
+      <p>Nas demais operações interestaduais — quando não se aplica a regra do 7%.</p>
+    </div>
+    <div class="card vermelho">
+      <h3>Alíquota Interestadual: 4% (importados)</h3>
+      <p>Produtos importados ou com conteúdo de importação superior a 40%, independente dos estados envolvidos.</p>
+      <div class="mt8"><span class="pill vermelho">Res. Senado 13/2012</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ GLOSSÁRIO ══════════ -->
+<section id="glossario">
+<div class="container">
+  <h2 class="section-title">📖 Glossário</h2>
+  <p class="section-sub">Termos que você vai encontrar ao lidar com tributos</p>
+
+  <div class="glossario">
+    <div class="gloss-item"><dt>ICMS</dt><dd>Imposto sobre Circulação de Mercadorias e Serviços. Estadual. Incide sobre quase tudo que circula comercialmente.</dd></div>
+    <div class="gloss-item"><dt>IPI</dt><dd>Imposto sobre Produtos Industrializados. Federal. Cobrado na saída da fábrica. Alíquota varia por NCM do produto.</dd></div>
+    <div class="gloss-item"><dt>PIS / COFINS</dt><dd>Contribuições federais sobre receita bruta. PIS = 0,65% (cumulativo) ou 1,65% (não-cumulativo). COFINS = 3% ou 7,6%.</dd></div>
+    <div class="gloss-item"><dt>CBS</dt><dd>Contribuição sobre Bens e Serviços. Novo tributo federal (substitui PIS/COFINS). Funciona como IVA. 0,9% em 2026 (teste); ≈8,8% pleno.</dd></div>
+    <div class="gloss-item"><dt>IBS</dt><dd>Imposto sobre Bens e Serviços. Novo tributo estadual+municipal (substitui ICMS+ISS). 0,1% em 2026 (teste); ≈17,7% pleno.</dd></div>
+    <div class="gloss-item"><dt>IS</dt><dd>Imposto Seletivo. Novo tributo federal sobre produtos prejudiciais à saúde ou ambiente. Entra em 2027.</dd></div>
+    <div class="gloss-item"><dt>ST (Substituição Tributária)</dt><dd>A indústria paga o ICMS de toda a cadeia antecipadamente. Distribuidores e varejistas ficam dispensados de recolher ICMS na saída.</dd></div>
+    <div class="gloss-item"><dt>MVA</dt><dd>Margem de Valor Agregado. Percentual estimado de markup da cadeia, usado para calcular a base do ICMS-ST. Fixado por convênio CONFAZ.</dd></div>
+    <div class="gloss-item"><dt>DIFAL</dt><dd>Diferencial de Alíquota. Diferença entre a alíquota interna do estado destino e a interestadual. Pertence ao estado destinatário.</dd></div>
+    <div class="gloss-item"><dt>NF-e</dt><dd>Nota Fiscal Eletrônica. A partir de 03/08/2026, deve ter os campos IBS e CBS preenchidos (NT 2025.002).</dd></div>
+    <div class="gloss-item"><dt>NCM</dt><dd>Nomenclatura Comum do Mercosul. Código de 8 dígitos que classifica o produto e determina a alíquota de IPI e ST.</dd></div>
+    <div class="gloss-item"><dt>CONFAZ</dt><dd>Conselho Nacional de Política Fazendária. Órgão que reúne os secretários de fazenda dos estados e define convênios e protocolos de ICMS.</dd></div>
+    <div class="gloss-item"><dt>IVA</dt><dd>Imposto sobre Valor Agregado. Sistema onde cada elo da cadeia paga somente sobre o valor que adicionou — comprando, desconta crédito; vendendo, paga débito.</dd></div>
+    <div class="gloss-item"><dt>Alíquota Modal</dt><dd>A alíquota geral do estado para a maioria dos produtos. Produtos específicos (energia, combustíveis, telecom) podem ter alíquotas diferentes.</dd></div>
+    <div class="gloss-item"><dt>FECP / FCP</dt><dd>Fundo Estadual de Combate à Pobreza. Adicional de ICMS de 1% a 2% cobrado por alguns estados (ex: RJ 2%). Integra a alíquota total.</dd></div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════ REFERÊNCIAS ══════════ -->
+<section id="referencias" style="background:var(--branco)">
+<div class="container">
+  <h2 class="section-title">📄 Referências Legais</h2>
+  <p class="section-sub">Documentos oficiais que embasam todas as informações desta página</p>
+
+  <div class="refs-grid">
+    <div class="ref-card">
+      <div class="ref-tipo">Emenda Constitucional</div>
+      <div class="ref-titulo">EC nº 132/2023 — Reforma Tributária</div>
+      <div class="ref-desc">Altera a Constituição Federal para instituir o IBS, CBS e IS. Define a extinção gradual do ICMS, ISS, IPI, PIS e COFINS até 2033.</div>
+      <a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm" target="_blank">Ver no Planalto →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Lei Complementar</div>
+      <div class="ref-titulo">LC nº 214/2025 — Regulamentação CBS, IBS e IS</div>
+      <div class="ref-desc">Institui o CBS, IBS e IS. Define alíquotas, base de cálculo, créditos, regimes específicos, isenções e cronograma de transição detalhado.</div>
+      <a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm" target="_blank">Ver no Planalto →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Lei Complementar</div>
+      <div class="ref-titulo">LC nº 68/2024 — Alíquotas de Referência</div>
+      <div class="ref-desc">Define as alíquotas de referência do CBS (8,8%) e IBS (17,7%), totalizando 26,5% de IVA dual no regime pleno.</div>
+      <a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp68.htm" target="_blank">Ver no Planalto →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Nota Técnica SEFAZ</div>
+      <div class="ref-titulo">NT 2025.002 — Campos IBS/CBS na NF-e</div>
+      <div class="ref-desc">Define os novos grupos (UB e W03) e campos obrigatórios do XML da NF-e para IBS, CBS e IS. Obrigatório em produção a partir de 03/08/2026.</div>
+      <a href="https://www.nfe.fazenda.gov.br/portal/exibirArquivo.aspx?conteudo=AklZnck3o6I=" target="_blank">Ver na SEFAZ Nacional →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Comunicado Oficial</div>
+      <div class="ref-titulo">Comunicado Conjunto RFB/CGIBS — dez/2025</div>
+      <div class="ref-desc">Define a dispensa de recolhimento do CBS e IBS em 2026 e detalha as obrigações acessórias do período de testes.</div>
+      <a href="https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/dezembro/comunicado-conjunto" target="_blank">Ver no Portal Gov.br →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Resolução do Senado</div>
+      <div class="ref-titulo">Res. Senado nº 22/1989 — ICMS Interestadual</div>
+      <div class="ref-desc">Estabelece as alíquotas interestaduais do ICMS: 7% para Sul/Sudeste vendendo para N/NE/CO/ES e 12% para as demais operações.</div>
+      <a href="https://legis.senado.leg.br/norma/557484" target="_blank">Ver no Senado →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Resolução do Senado</div>
+      <div class="ref-titulo">Res. Senado nº 13/2012 — ICMS Importados</div>
+      <div class="ref-desc">Estabelece alíquota de 4% nas operações interestaduais com bens importados ou com alto conteúdo de importação.</div>
+      <a href="https://legis.senado.leg.br/norma/558879" target="_blank">Ver no Senado →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Portal Oficial</div>
+      <div class="ref-titulo">CGIBS — Comitê Gestor do IBS</div>
+      <div class="ref-desc">Órgão responsável pela gestão do IBS. Publica orientações, alíquotas e cronogramas da reforma tributária.</div>
+      <a href="https://www.cgibs.gov.br" target="_blank">Acessar cgibs.gov.br →</a>
+    </div>
+    <div class="ref-card">
+      <div class="ref-tipo">Portal Oficial</div>
+      <div class="ref-titulo">Reforma Tributária — Ministério da Fazenda</div>
+      <div class="ref-desc">Portal oficial do MF com documentos, orientações e notícias sobre a reforma tributária do consumo.</div>
+      <a href="https://www.gov.br/fazenda/pt-br/acesso-a-informacao/acoes-e-programas/reforma-tributaria" target="_blank">Acessar →</a>
+    </div>
+  </div>
+
+  <div class="alerta-destaque" style="margin-top:32px">
+    <div class="icon">⚠️</div>
+    <div>
+      <strong>Aviso legal</strong>
+      <p>As informações desta página têm caráter educativo e informativo, baseadas na legislação vigente em julho de 2026. Para decisões fiscais e tributárias, consulte sempre um contador ou advogado tributarista habilitado. A legislação tributária brasileira muda com frequência.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  Desenvolvido por <strong>M. Ferretti Distribuidora</strong> — Portal de Informações Tributárias 2026<br>
+  Fontes: EC 132/2023 · LC 214/2025 · LC 68/2024 · NT 2025.002 · Receita Federal · CGIBS · CONFAZ
+</footer>
+
+<script>
+// ══════════ DADOS ══════════
+const ESTADOS = {
+  'AC':{'n':'Acre','r':'N','int':17,'fecp':0},
+  'AL':{'n':'Alagoas','r':'NE','int':19,'fecp':0},
+  'AM':{'n':'Amazonas','r':'N','int':20,'fecp':0},
+  'AP':{'n':'Amapá','r':'N','int':18,'fecp':0},
+  'BA':{'n':'Bahia','r':'NE','int':20.5,'fecp':0},
+  'CE':{'n':'Ceará','r':'NE','int':20,'fecp':0},
+  'DF':{'n':'Distrito Federal','r':'CO','int':20,'fecp':0},
+  'ES':{'n':'Espírito Santo','r':'SE','int':17,'fecp':0},
+  'GO':{'n':'Goiás','r':'CO','int':19,'fecp':0},
+  'MA':{'n':'Maranhão','r':'NE','int':23,'fecp':0},
+  'MG':{'n':'Minas Gerais','r':'SE','int':18,'fecp':0},
+  'MS':{'n':'Mato Grosso do Sul','r':'CO','int':17,'fecp':0},
+  'MT':{'n':'Mato Grosso','r':'CO','int':17,'fecp':0},
+  'PA':{'n':'Pará','r':'N','int':19,'fecp':0},
+  'PB':{'n':'Paraíba','r':'NE','int':20,'fecp':0},
+  'PE':{'n':'Pernambuco','r':'NE','int':20.5,'fecp':0},
+  'PI':{'n':'Piauí','r':'NE','int':21,'fecp':0},
+  'PR':{'n':'Paraná','r':'S','int':19.5,'fecp':0},
+  'RJ':{'n':'Rio de Janeiro','r':'SE','int':20,'fecp':2},
+  'RN':{'n':'Rio Grande do Norte','r':'NE','int':20,'fecp':0},
+  'RO':{'n':'Rondônia','r':'N','int':17.5,'fecp':0},
+  'RR':{'n':'Roraima','r':'N','int':20,'fecp':0},
+  'RS':{'n':'Rio Grande do Sul','r':'S','int':17,'fecp':0},
+  'SC':{'n':'Santa Catarina','r':'S','int':17,'fecp':0},
+  'SE':{'n':'Sergipe','r':'NE','int':19,'fecp':0},
+  'SP':{'n':'São Paulo','r':'SE','int':18,'fecp':0},
+  'TO':{'n':'Tocantins','r':'N','int':20,'fecp':0}
+};
+
+const SUL_SUDESTE_SEM_ES = ['PR','SC','RS','SP','MG','RJ'];
+const FAVORECIDOS_7 = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MT','MS','PA','PB','PE','PI','RN','RO','RR','SE','TO'];
+
+function getAliqInter(orig, dest, importado) {
+  if (importado) return 4;
+  if (SUL_SUDESTE_SEM_ES.includes(orig) && FAVORECIDOS_7.includes(dest)) return 7;
+  return 12;
+}
+
+const REGIAO_NOME = {'N':'Norte','NE':'Nordeste','SE':'Sudeste','S':'Sul','CO':'Centro-Oeste'};
+const REGIAO_BADGE = {'N':'n','NE':'ne','SE':'se','S':'s','CO':'co'};
+
+function fmt(v) { return 'R$ ' + v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+function fmtP(v) { return v.toFixed(2).replace('.',',') + '%'; }
+
+// ══════════ INICIALIZAÇÃO ══════════
+function initSelects() {
+  const ufs = Object.keys(ESTADOS).sort();
+  ['s-uf-origem','s-uf-destino','st-uf-origem','st-uf-destino'].forEach(id => {
+    const sel = document.getElementById(id);
+    ufs.forEach(uf => {
+      const opt = document.createElement('option');
+      opt.value = uf;
+      opt.textContent = uf + ' — ' + ESTADOS[uf].n;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function initTabela() {
+  const tbody = document.getElementById('tbody-estados');
+  Object.keys(ESTADOS).sort().forEach(uf => {
+    const e = ESTADOS[uf];
+    const total = e.int + e.fecp;
+    const recebe7 = FAVORECIDOS_7.includes(uf) ? '✅ Sim' : '—';
+    const envia7 = SUL_SUDESTE_SEM_ES.includes(uf) ? '✅ Sim' : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${uf}</strong></td>
+      <td>${e.n}</td>
+      <td><span class="badge ${REGIAO_BADGE[e.r]}">${REGIAO_NOME[e.r]}</span></td>
+      <td><strong>${e.int}%</strong></td>
+      <td>${e.fecp > 0 ? '+' + e.fecp + '%' : '—'}</td>
+      <td><strong>${total}%</strong></td>
+      <td>${recebe7}</td>
+      <td>${envia7}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ══════════ AUTO-ALÍQUOTAS ══════════
+function calcAutoAliq(prefix) {
+  const orig = document.getElementById(prefix + '-uf-origem').value;
+  const dest = document.getElementById(prefix + '-uf-destino').value;
+
+  if (prefix === 's') {
+    const tipo = document.getElementById('s-tipo-op').value;
+    const regime = document.getElementById('s-regime').value;
+    const pisCofins = regime === 'real' ? 9.25 : regime === 'presumido' ? 3.65 : 0;
+    const pisCofinsEl = document.getElementById('s-piscofins');
+    const pisCofinsDistEl = document.getElementById('s-piscofins-dist');
+    if (pisCofinsEl && !pisCofinsEl.dataset.manual) {
+      pisCofinsEl.value = pisCofins > 0 ? pisCofins : '';
+      document.getElementById('s-piscofins-hint').textContent =
+        regime === 'real' ? 'PIS 1,65% + COFINS 7,6% (Lucro Real)' :
+        regime === 'presumido' ? 'PIS 0,65% + COFINS 3% (Lucro Presumido)' :
+        'Simples Nacional: PIS/COFINS já no DAS';
+    }
+    if (pisCofinsDistEl && !pisCofinsDistEl.dataset.manual) pisCofinsDistEl.value = pisCofins > 0 ? pisCofins : '';
+
+    if (orig && dest) {
+      const importado = false;
+      let aliq = tipo === 'intraestadual' ? ESTADOS[orig].int : getAliqInter(orig, dest, importado);
+      const icmsOpEl = document.getElementById('s-icms-op');
+      if (!icmsOpEl.dataset.manual) {
+        icmsOpEl.value = aliq;
+        document.getElementById('s-icms-op-hint').textContent = tipo === 'intraestadual'
+          ? 'Intraestadual: alíq. interna de ' + orig + ' = ' + aliq + '%'
+          : 'Interestadual ' + orig + '→' + dest + ': ' + aliq + '% (Res. Sen. 22/89)';
+      }
+      const icmsDistEl = document.getElementById('s-icms-dist');
+      if (!icmsDistEl.dataset.manual) {
+        icmsDistEl.value = ESTADOS[dest].int + ESTADOS[dest].fecp;
+        document.getElementById('s-icms-dist-hint').textContent = 'Alíq. interna ' + dest + ': ' + (ESTADOS[dest].int + ESTADOS[dest].fecp) + '%';
+      }
+      const icmsVarEl = document.getElementById('s-icms-var');
+      if (!icmsVarEl.dataset.manual) icmsVarEl.value = ESTADOS[dest].int + ESTADOS[dest].fecp;
+    }
+  }
+
+  if (prefix === 'st') {
+    const importado = document.getElementById('st-importado').value === 'sim';
+    if (orig && dest) {
+      const aliqInter = getAliqInter(orig, dest, importado);
+      const aliqInterna = ESTADOS[dest].int + ESTADOS[dest].fecp;
+      const interEl = document.getElementById('st-icms-inter');
+      const intEl = document.getElementById('st-aliq-interna');
+      if (!interEl.dataset.manual) {
+        interEl.value = aliqInter;
+        document.getElementById('st-icms-inter-hint').textContent =
+          importado ? 'Importado: 4% (Res. Sen. 13/2012)' :
+          'Interestadual ' + orig + '→' + dest + ': ' + aliqInter + '% (Res. Sen. 22/89)';
+      }
+      if (!intEl.dataset.manual) {
+        intEl.value = aliqInterna;
+        document.getElementById('st-aliq-hint').textContent = 'Alíq. interna ' + dest + ': ' + aliqInterna + '%';
+      }
+    }
+  }
+}
+
+// Marcar como manual quando o usuário edita
+['s-icms-op','s-piscofins','s-icms-dist','s-piscofins-dist','s-icms-var',
+ 'st-icms-inter','st-aliq-interna'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => el.dataset.manual = '1');
+});
+
+document.getElementById('s-regime').addEventListener('change', () => calcAutoAliq('s'));
+
+// ══════════ CALC SIMPLES ══════════
+function calcSimples() {
+  const preco = parseFloat(document.getElementById('s-preco').value) || 0;
+  const ipi   = parseFloat(document.getElementById('s-ipi').value)   || 0;
+  const icmsOp = parseFloat(document.getElementById('s-icms-op').value) || 0;
+  const piscofins = parseFloat(document.getElementById('s-piscofins').value) || 0;
+  const margemDist = parseFloat(document.getElementById('s-margem-dist').value) || 0;
+  const icmsDist = parseFloat(document.getElementById('s-icms-dist').value) || 0;
+  const piscofinsDist = parseFloat(document.getElementById('s-piscofins-dist').value) || 0;
+  const margemVar = parseFloat(document.getElementById('s-margem-var').value) || 0;
+  const icmsVar = parseFloat(document.getElementById('s-icms-var').value) || 0;
+
+  if (preco <= 0) { alert('Informe o preço de venda da indústria.'); return; }
+
+  // INDÚSTRIA
+  const vIPI = preco * ipi / 100;
+  const totalNF_ind = preco + vIPI;
+  const vICMS_ind = preco * icmsOp / 100;
+  const vPIS_ind = preco * (piscofins > 0 ? (piscofins * 1.65/9.25) / 100 : 0); // só PIS
+  const vCOFINS_ind = preco * (piscofins > 0 ? (piscofins * 7.6/9.25) / 100 : 0);
+  const vPISCOFINS_ind = preco * piscofins / 100;
+
+  // CUSTO DISTRIBUIDOR
+  const custoDist = totalNF_ind; // paga produto + IPI
+  const precoVendaDist = custoDist * (1 + margemDist / 100);
+  const vICMS_dist_debito = precoVendaDist * icmsDist / 100;
+  const vICMS_dist_credito = preco * icmsOp / 100; // crédito da entrada
+  const vICMS_dist_recolher = Math.max(0, vICMS_dist_debito - vICMS_dist_credito);
+  const vPISCOFINS_dist = precoVendaDist * piscofinsDist / 100;
+
+  // CUSTO VAREJISTA
+  const custoVar = precoVendaDist;
+  const precoVendaVar = custoVar * (1 + margemVar / 100);
+  const vICMS_var_debito = precoVendaVar * icmsVar / 100;
+  const vICMS_var_credito = precoVendaDist * icmsDist / 100;
+  const vICMS_var_recolher = Math.max(0, vICMS_var_debito - vICMS_var_credito);
+
+  // TOTAIS
+  const totalICMS = vICMS_ind + vICMS_dist_recolher + vICMS_var_recolher;
+  const totalPIS = vPISCOFINS_ind + vPISCOFINS_dist;
+  const totalImpostos = vIPI + totalICMS + totalPIS;
+  const cargaPerc = precoVendaVar > 0 ? (totalImpostos / precoVendaVar) * 100 : 0;
+
+  const res = document.getElementById('resultado');
+  res.style.display = 'block';
+  res.innerHTML = `
+    <div class="resultado-header">
+      <h4>📊 Resultado — Cadeia Completa (sem ST)</h4>
+      <p style="font-size:.88rem;color:var(--texto2)">Preço base saída fábrica: ${fmt(preco)} · IPI: ${fmtP(ipi)} · ICMS op.: ${fmtP(icmsOp)} · PIS/COFINS: ${fmtP(piscofins)}</p>
+    </div>
+
+    <div class="etapas-grid">
+      <div class="etapa-card">
+        <div class="etapa-label">🏭 Saída da Indústria</div>
+        <div class="etapa-valor">${fmt(preco)}</div>
+        <div class="etapa-sub">Valor do produto s/ impostos</div>
+      </div>
+      <div class="etapa-card">
+        <div class="etapa-label">📋 Total NF Indústria</div>
+        <div class="etapa-valor">${fmt(totalNF_ind)}</div>
+        <div class="etapa-sub">Produto + IPI (${fmt(vIPI)})</div>
+      </div>
+      <div class="etapa-card">
+        <div class="etapa-label">🏪 Preço Distribuidor Venda</div>
+        <div class="etapa-valor">${fmt(precoVendaDist)}</div>
+        <div class="etapa-sub">Custo + margem ${fmtP(margemDist)}</div>
+      </div>
+      <div class="etapa-card destaque">
+        <div class="etapa-label">🛒 Preço Consumidor Final</div>
+        <div class="etapa-valor">${fmt(precoVendaVar)}</div>
+        <div class="etapa-sub">Varejista + margem ${fmtP(margemVar)}</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+
+      <div>
+        <div class="form-section-title">💼 Impostos na Saída da Indústria</div>
+        <table class="detalhe-table">
+          <tr><td>Preço do produto (base)</td><td>${fmt(preco)}</td></tr>
+          <tr class="highlight"><td>IPI (${fmtP(ipi)})</td><td>${fmt(vIPI)}</td></tr>
+          <tr class="highlight"><td>ICMS destacado (${fmtP(icmsOp)} × ${fmt(preco)})</td><td>${fmt(vICMS_ind)}</td></tr>
+          <tr class="highlight"><td>PIS/COFINS (${fmtP(piscofins)} × ${fmt(preco)})</td><td>${fmt(vPISCOFINS_ind)}</td></tr>
+          <tr class="total"><td>Total NF (produto + IPI)</td><td>${fmt(totalNF_ind)}</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <div class="form-section-title">🏪 Impostos no Distribuidor</div>
+        <table class="detalhe-table">
+          <tr><td>Custo de aquisição</td><td>${fmt(custoDist)}</td></tr>
+          <tr><td>Preço de venda (+ ${fmtP(margemDist)})</td><td>${fmt(precoVendaDist)}</td></tr>
+          <tr class="highlight"><td>ICMS débito (${fmtP(icmsDist)} × ${fmt(precoVendaDist)})</td><td>${fmt(vICMS_dist_debito)}</td></tr>
+          <tr><td>ICMS crédito da entrada</td><td>− ${fmt(vICMS_dist_credito)}</td></tr>
+          <tr class="highlight"><td>ICMS a recolher (líquido)</td><td>${fmt(vICMS_dist_recolher)}</td></tr>
+          <tr class="highlight"><td>PIS/COFINS (${fmtP(piscofinsDist)})</td><td>${fmt(vPISCOFINS_dist)}</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <div class="form-section-title">🛒 Impostos no Varejista</div>
+        <table class="detalhe-table">
+          <tr><td>Custo de aquisição</td><td>${fmt(custoVar)}</td></tr>
+          <tr><td>Preço de venda (+ ${fmtP(margemVar)})</td><td>${fmt(precoVendaVar)}</td></tr>
+          <tr class="highlight"><td>ICMS débito (${fmtP(icmsVar)} × ${fmt(precoVendaVar)})</td><td>${fmt(vICMS_var_debito)}</td></tr>
+          <tr><td>ICMS crédito da entrada</td><td>− ${fmt(vICMS_var_credito)}</td></tr>
+          <tr class="highlight"><td>ICMS a recolher (líquido)</td><td>${fmt(vICMS_var_recolher)}</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="carga-total">
+      <div class="carga-item">
+        <div class="carga-val">${fmt(precoVendaVar)}</div>
+        <div class="carga-desc">Preço ao Consumidor</div>
+      </div>
+      <div class="carga-item">
+        <div class="carga-val">${fmt(totalImpostos)}</div>
+        <div class="carga-desc">Total de Impostos Pagos</div>
+      </div>
+      <div class="carga-item">
+        <div class="carga-val">${fmtP(cargaPerc)}</div>
+        <div class="carga-desc">Carga Tributária Efetiva</div>
+      </div>
+    </div>
+
+    <div class="explicacao-box" style="margin-top:16px">
+      <h5>Como chegamos a esses números</h5>
+      <ol>
+        <li><strong>IPI:</strong> ${fmt(preco)} × ${fmtP(ipi)} = ${fmt(vIPI)} (destacado na NF, não entra na BC do ICMS)</li>
+        <li><strong>ICMS da indústria:</strong> ${fmt(preco)} × ${fmtP(icmsOp)} = ${fmt(vICMS_ind)} (destacado na NF)</li>
+        <li><strong>PIS/COFINS da indústria:</strong> ${fmt(preco)} × ${fmtP(piscofins)} = ${fmt(vPISCOFINS_ind)}</li>
+        <li><strong>Distribuidor compra:</strong> ${fmt(totalNF_ind)} (produto + IPI) e aplica margem de ${fmtP(margemDist)} → vende por ${fmt(precoVendaDist)}</li>
+        <li><strong>ICMS do distribuidor:</strong> débito ${fmt(vICMS_dist_debito)} − crédito da entrada ${fmt(vICMS_dist_credito)} = <strong>recolhe ${fmt(vICMS_dist_recolher)}</strong></li>
+        <li><strong>Varejista compra:</strong> ${fmt(precoVendaDist)} e aplica margem de ${fmtP(margemVar)} → vende por ${fmt(precoVendaVar)}</li>
+        <li><strong>ICMS do varejista:</strong> débito ${fmt(vICMS_var_debito)} − crédito ${fmt(vICMS_var_credito)} = <strong>recolhe ${fmt(vICMS_var_recolher)}</strong></li>
+        <li><strong>Carga total:</strong> IPI ${fmt(vIPI)} + ICMS total ${fmt(totalICMS)} + PIS/COFINS ${fmt(totalPIS)} = ${fmt(totalImpostos)} (${fmtP(cargaPerc)} do preço final)</li>
+      </ol>
+    </div>
+  `;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════ CALC COM ST ══════════
+function calcST() {
+  const preco = parseFloat(document.getElementById('st-preco').value) || 0;
+  const ipi   = parseFloat(document.getElementById('st-ipi').value)   || 0;
+  const icmsInter = parseFloat(document.getElementById('st-icms-inter').value) || 0;
+  const mvaOrig = parseFloat(document.getElementById('st-mva').value) || 0;
+  const aliqInterna = parseFloat(document.getElementById('st-aliq-interna').value) || 0;
+  const usaMvaAj = document.getElementById('st-usa-mva-aj').value === 'sim';
+  const margemDist = parseFloat(document.getElementById('st-margem-dist').value) || 0;
+  const margemVar  = parseFloat(document.getElementById('st-margem-var').value)  || 0;
+
+  if (preco <= 0) { alert('Informe o preço de venda da indústria.'); return; }
+  if (mvaOrig <= 0) { alert('Informe a MVA do produto.'); return; }
+  if (aliqInterna <= 0) { alert('Informe a alíquota interna do estado destino.'); return; }
+
+  // MVA ajustada
+  const mvaAj = usaMvaAj
+    ? ((1 + mvaOrig/100) * (1 - icmsInter/100) / (1 - aliqInterna/100) - 1) * 100
+    : mvaOrig;
+
+  const vIPI = preco * ipi / 100;
+  const baseST = (preco + vIPI) * (1 + mvaAj / 100);
+  const icmsSTbruto = baseST * aliqInterna / 100;
+  const icmsProprio = preco * icmsInter / 100;
+  const icmsSTrecolher = Math.max(0, icmsSTbruto - icmsProprio);
+
+  const totalNF = preco + vIPI + icmsSTrecolher;
+  const custoDist = totalNF;
+  const precoVendaDist = preco * (1 + margemDist / 100) + vIPI; // distribuidor sobre o produto
+  const precoVendaVar = precoVendaDist * (1 + margemVar / 100);
+
+  const totalImpostos = vIPI + icmsProprio + icmsSTrecolher;
+  const cargaPerc = precoVendaVar > 0 ? (totalImpostos / precoVendaVar) * 100 : 0;
+
+  const res = document.getElementById('resultado');
+  res.style.display = 'block';
+  res.innerHTML = `
+    <div class="resultado-header">
+      <h4>📊 Resultado — Com Substituição Tributária (ST)</h4>
+      <p style="font-size:.88rem;color:var(--texto2)">ICMS pago antecipadamente pela indústria para toda a cadeia</p>
+    </div>
+
+    <div class="etapas-grid">
+      <div class="etapa-card">
+        <div class="etapa-label">🏭 Preço Saída Indústria</div>
+        <div class="etapa-valor">${fmt(preco)}</div>
+        <div class="etapa-sub">Sem impostos</div>
+      </div>
+      <div class="etapa-card vermelho-borda" style="border-color:#c0392b">
+        <div class="etapa-label">🧾 ICMS-ST Recolhido</div>
+        <div class="etapa-valor" style="color:var(--vermelho)">${fmt(icmsSTrecolher)}</div>
+        <div class="etapa-sub">Pago pela indústria p/ toda a cadeia</div>
+      </div>
+      <div class="etapa-card">
+        <div class="etapa-label">🏪 Preço Venda Distribuidor</div>
+        <div class="etapa-valor">${fmt(precoVendaDist)}</div>
+        <div class="etapa-sub">Sem novo ICMS (já pago via ST)</div>
+      </div>
+      <div class="etapa-card destaque">
+        <div class="etapa-label">🛒 Preço Consumidor Final</div>
+        <div class="etapa-valor">${fmt(precoVendaVar)}</div>
+        <div class="etapa-sub">Varejista + margem ${fmtP(margemVar)}</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+      <div>
+        <div class="form-section-title">🏭 Cálculo do ICMS-ST</div>
+        <table class="detalhe-table">
+          <tr><td>Preço do produto</td><td>${fmt(preco)}</td></tr>
+          <tr><td>IPI (${fmtP(ipi)})</td><td>${fmt(vIPI)}</td></tr>
+          <tr><td>MVA original</td><td>${fmtP(mvaOrig)}</td></tr>
+          <tr class="highlight"><td>MVA ${usaMvaAj ? 'ajustada (interestadual)' : 'original'}</td><td>${fmtP(mvaAj)}</td></tr>
+          <tr><td>Base ST = (${fmt(preco)} + ${fmt(vIPI)}) × (1 + ${fmtP(mvaAj)})</td><td>${fmt(baseST)}</td></tr>
+          <tr class="highlight"><td>ICMS ST bruto (${fmtP(aliqInterna)} × ${fmt(baseST)})</td><td>${fmt(icmsSTbruto)}</td></tr>
+          <tr><td>ICMS próprio da operação (${fmtP(icmsInter)})</td><td>− ${fmt(icmsProprio)}</td></tr>
+          <tr class="total"><td>ICMS-ST a recolher</td><td>${fmt(icmsSTrecolher)}</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <div class="form-section-title">🏪 Distribuidor e Varejista (sem ICMS)</div>
+        <table class="detalhe-table">
+          <tr><td>Distribuidor recebe por (produto)</td><td>${fmt(preco)}</td></tr>
+          <tr><td>Distribuidor vende (+ ${fmtP(margemDist)} margem)</td><td>${fmt(precoVendaDist)}</td></tr>
+          <tr><td>ICMS do distribuidor na saída</td><td><strong style="color:var(--verde)">R$ 0,00</strong> (já pago via ST)</td></tr>
+          <tr><td>Varejista vende (+ ${fmtP(margemVar)} margem)</td><td>${fmt(precoVendaVar)}</td></tr>
+          <tr><td>ICMS do varejista na saída</td><td><strong style="color:var(--verde)">R$ 0,00</strong> (já pago via ST)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="carga-total">
+      <div class="carga-item">
+        <div class="carga-val">${fmt(precoVendaVar)}</div>
+        <div class="carga-desc">Preço ao Consumidor</div>
+      </div>
+      <div class="carga-item">
+        <div class="carga-val">${fmt(totalImpostos)}</div>
+        <div class="carga-desc">Total Impostos (IPI + ICMS)</div>
+      </div>
+      <div class="carga-item">
+        <div class="carga-val">${fmtP(cargaPerc)}</div>
+        <div class="carga-desc">Carga Tributária Estimada</div>
+      </div>
+    </div>
+
+    <div class="explicacao-box" style="margin-top:16px">
+      <h5>Como funciona o cálculo da ST</h5>
+      <ol>
+        <li><strong>MVA Ajustada</strong> (obrigatória em operações interestaduais) = [(1 + ${fmtP(mvaOrig)}) × (1 − ${fmtP(icmsInter)}) / (1 − ${fmtP(aliqInterna)})] − 1 = <strong>${fmtP(mvaAj)}</strong></li>
+        <li><strong>Base de cálculo ST</strong> = (produto ${fmt(preco)} + IPI ${fmt(vIPI)}) × (1 + MVA ${fmtP(mvaAj)}) = <strong>${fmt(baseST)}</strong></li>
+        <li><strong>ICMS ST bruto</strong> = ${fmt(baseST)} × ${fmtP(aliqInterna)} (alíq. interna destino) = ${fmt(icmsSTbruto)}</li>
+        <li><strong>Desconta ICMS próprio</strong> = ${fmt(icmsSTbruto)} − ${fmt(icmsProprio)} = <strong>ICMS-ST: ${fmt(icmsSTrecolher)}</strong></li>
+        <li>Distribuidor e varejista <strong>não recolhem ICMS</strong> — o imposto de toda a cadeia já foi pago pela indústria</li>
+      </ol>
+    </div>
+  `;
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════ UI ══════════
+function mudarAba(btn, panelId) {
+  const container = btn.closest('.tabs').parentElement;
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('ativo'));
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('ativo');
+  if (panelId === 'calc-simples' || panelId === 'calc-st') {
+    document.getElementById('resultado').style.display = 'none';
+  }
+}
+
+function limparCalc(tipo) {
+  document.getElementById('resultado').style.display = 'none';
+  if (tipo === 'simples') {
+    ['s-preco','s-ipi','s-icms-op','s-piscofins','s-margem-dist','s-icms-dist','s-piscofins-dist','s-margem-var','s-icms-var']
+      .forEach(id => { const el = document.getElementById(id); if(el){el.value='';delete el.dataset.manual;} });
+    document.getElementById('s-uf-origem').value = '';
+    document.getElementById('s-uf-destino').value = '';
+  } else {
+    ['st-preco','st-ipi','st-icms-inter','st-mva','st-aliq-interna','st-margem-dist','st-margem-var']
+      .forEach(id => { const el = document.getElementById(id); if(el){el.value='';delete el.dataset.manual;} });
+    document.getElementById('st-uf-origem').value = '';
+    document.getElementById('st-uf-destino').value = '';
+  }
+}
+
+function scrollTo(sel) {
+  const el = document.querySelector(sel);
+  if (el) el.scrollIntoView({behavior:'smooth'});
+}
+
+// ══════════ INIT ══════════
+initSelects();
+initTabela();
+calcAutoAliq('s');
+</script>
+</body>
+</html>
