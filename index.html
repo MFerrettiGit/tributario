@@ -1374,7 +1374,7 @@ function calcMargem() {
 
   const lucro  = recLiq - liquido;
   const margem = (lucro / venda) * 100;
-  const markup = custo > 0 ? (lucro / custo) * 100 : 0;
+  const markup = custo > 0 ? (venda / custo - 1) * 100 : 0;
 
   div.style.display = 'block';
   document.getElementById('mg-r-custo').textContent   = fmt(custo);
