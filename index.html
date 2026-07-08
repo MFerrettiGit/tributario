@@ -472,7 +472,7 @@ footer strong{color:#fff}
             <div class="etapa-card destaque">
               <div class="etapa-label">Markup</div>
               <div class="etapa-valor color-azul" id="mg-r-markup">—</div>
-              <div class="etapa-sub">Lucro ÷ Custo líquido</div>
+              <div class="etapa-sub">Lucro ÷ Custo bruto</div>
             </div>
           </div>
           <table class="detalhe-table" style="margin-top:8px">
@@ -486,12 +486,12 @@ footer strong{color:#fff}
             <tr><td>= Receita líquida</td><td id="mg-t-rec-liq">—</td></tr>
             <tr class="total"><td>Lucro (receita líquida − custo líquido)</td><td id="mg-t-lucro">—</td></tr>
             <tr class="total"><td>Margem (lucro ÷ preço de venda)</td><td id="mg-t-margem">—</td></tr>
-            <tr class="total"><td>Markup (lucro ÷ custo líquido)</td><td id="mg-t-markup">—</td></tr>
+            <tr class="total"><td>Markup (lucro ÷ custo bruto)</td><td id="mg-t-markup">—</td></tr>
           </table>
           <div class="explicacao-box" style="margin-top:12px">
             <h5>Diferença entre Margem e Markup</h5>
             <p><strong>Margem</strong> = Lucro ÷ Preço de venda &nbsp;|&nbsp; Representa quanto do preço final é lucro.<br>
-            <strong>Markup</strong> = Lucro ÷ Custo líquido &nbsp;|&nbsp; Representa o quanto o custo real foi multiplicado para chegar no preço.</p>
+            <strong>Markup</strong> = Lucro ÷ Custo bruto &nbsp;|&nbsp; Representa o quanto o custo de compra foi multiplicado para chegar no preço.</p>
           </div>
         </div>
       </div>
@@ -1374,7 +1374,7 @@ function calcMargem() {
 
   const lucro  = recLiq - liquido;
   const margem = (lucro / venda) * 100;
-  const markup = liquido > 0 ? (lucro / liquido) * 100 : 0;
+  const markup = custo > 0 ? (lucro / custo) * 100 : 0;
 
   div.style.display = 'block';
   document.getElementById('mg-r-custo').textContent   = fmt(custo);
