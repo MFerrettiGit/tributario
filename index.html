@@ -318,6 +318,7 @@ footer strong{color:#fff}
     <div style="padding:0 24px;border-bottom:2px solid var(--cinza2)">
       <div class="tabs" style="border:none;margin:0">
         <button class="tab-btn ativo" onclick="mudarAba(this,'calc-externa')">Clientes</button>
+        <button class="tab-btn" onclick="mudarAba(this,'calc-margem')">Margem do Cliente</button>
         <button class="tab-btn" disabled style="opacity:.4;cursor:default">Interna (em breve)</button>
       </div>
     </div>
@@ -385,6 +386,64 @@ footer strong{color:#fff}
         <button class="btn-limpar" onclick="limparCalc('ext')">Limpar</button>
 
         <div id="resultado-ext"></div>
+      </div>
+
+      <!-- CALC MARGEM DO CLIENTE -->
+      <div class="tab-panel" id="calc-margem">
+        <p style="font-size:.88rem;color:var(--texto2);margin-bottom:20px">Informe o preço que a Ferretti vende para o cliente e o preço que o cliente pratica nas vendas dele. A calculadora mostra a margem e o markup que o cliente está usando.</p>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Valor vendido ao cliente (R$)</label>
+            <input type="number" id="mg-custo" placeholder="Preço de venda da Ferretti" step="0.01" min="0" oninput="calcMargem()">
+            <small>Custo de compra do cliente</small>
+          </div>
+          <div class="form-group">
+            <label>Valor de venda do cliente (R$)</label>
+            <input type="number" id="mg-venda" placeholder="Preço que o cliente cobra" step="0.01" min="0" oninput="calcMargem()">
+            <small>Preço de venda ao consumidor final</small>
+          </div>
+          <div class="form-group" style="justify-content:flex-end">
+            <button class="btn-limpar" style="margin-top:0" onclick="limparMargem()">Limpar</button>
+          </div>
+        </div>
+
+        <div id="resultado-margem" style="display:none;margin-top:20px">
+          <div class="etapas-grid" style="grid-template-columns:repeat(4,1fr)">
+            <div class="etapa-card">
+              <div class="etapa-label">Custo do Cliente</div>
+              <div class="etapa-valor" id="mg-r-custo">—</div>
+              <div class="etapa-sub">Valor de compra</div>
+            </div>
+            <div class="etapa-card">
+              <div class="etapa-label">Preço de Venda</div>
+              <div class="etapa-valor" id="mg-r-venda">—</div>
+              <div class="etapa-sub">Valor cobrado ao final</div>
+            </div>
+            <div class="etapa-card destaque">
+              <div class="etapa-label">Margem</div>
+              <div class="etapa-valor color-azul" id="mg-r-margem">—</div>
+              <div class="etapa-sub">Lucro ÷ Preço de venda</div>
+            </div>
+            <div class="etapa-card destaque">
+              <div class="etapa-label">Markup</div>
+              <div class="etapa-valor color-azul" id="mg-r-markup">—</div>
+              <div class="etapa-sub">Lucro ÷ Custo</div>
+            </div>
+          </div>
+          <table class="detalhe-table" style="margin-top:8px">
+            <tr><td>Custo de compra (valor Ferretti)</td><td id="mg-t-custo">—</td></tr>
+            <tr class="highlight"><td>Preço de venda do cliente</td><td id="mg-t-venda">—</td></tr>
+            <tr><td>Lucro bruto</td><td id="mg-t-lucro">—</td></tr>
+            <tr class="total"><td>Margem (lucro ÷ preço de venda)</td><td id="mg-t-margem">—</td></tr>
+            <tr class="total"><td>Markup (lucro ÷ custo)</td><td id="mg-t-markup">—</td></tr>
+          </table>
+          <div class="explicacao-box" style="margin-top:12px">
+            <h5>Diferença entre Margem e Markup</h5>
+            <p><strong>Margem</strong> = Lucro ÷ Preço de venda &nbsp;|&nbsp; Representa quanto do preço final é lucro.<br>
+            <strong>Markup</strong> = Lucro ÷ Custo &nbsp;|&nbsp; Representa quanto o custo foi multiplicado para chegar no preço.</p>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1008,7 +1067,7 @@ function initTabela() {
 
 // ══════════ UI ══════════
 function mudarAba(btn, panelId) {
-  const container = btn.closest('.tabs').parentElement;
+  const container = btn.closest('.calc-container') || btn.closest('.tabs').parentElement;
   container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('ativo'));
   container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('ativo'));
   btn.classList.add('ativo');
@@ -1171,6 +1230,31 @@ function calcExterna() {
       '<tr><td>  Margem do cliente ('+fmtP(margem*100)+')</td><td>'+fmt(margemVal)+'</td></tr>'+
     '</table>'+
     (extProd&&extProd.p==='M'?'<div class="explicacao-box" style="margin-top:12px"><h5>Regime Monofásico</h5><p>PIS/COFINS recolhido concentrado pelo fabricante. A Ferretti não recolhe PIS/COFINS na revenda — alíquota zero.</p></div>':'');
+}
+
+// ══════════ CALCULADORA MARGEM DO CLIENTE ══════════
+function calcMargem() {
+  const custo = parseFloat(document.getElementById('mg-custo').value) || 0;
+  const venda = parseFloat(document.getElementById('mg-venda').value) || 0;
+  const div   = document.getElementById('resultado-margem');
+  if (!custo || !venda || venda <= custo) { div.style.display = 'none'; return; }
+  const lucro  = venda - custo;
+  const margem = (lucro / venda) * 100;
+  const markup = (lucro / custo) * 100;
+  div.style.display = 'block';
+  document.getElementById('mg-r-custo').textContent  = fmt(custo);
+  document.getElementById('mg-r-venda').textContent  = fmt(venda);
+  document.getElementById('mg-r-margem').textContent = fmtP(margem);
+  document.getElementById('mg-r-markup').textContent = fmtP(markup);
+  document.getElementById('mg-t-custo').textContent  = fmt(custo);
+  document.getElementById('mg-t-venda').textContent  = fmt(venda);
+  document.getElementById('mg-t-lucro').textContent  = fmt(lucro);
+  document.getElementById('mg-t-margem').textContent = fmtP(margem);
+  document.getElementById('mg-t-markup').textContent = fmtP(markup);
+}
+function limparMargem() {
+  ['mg-custo','mg-venda'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('resultado-margem').style.display = 'none';
 }
 
 // Fechar dropdown ao clicar fora
