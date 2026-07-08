@@ -390,35 +390,57 @@ footer strong{color:#fff}
 
       <!-- CALC MARGEM DO CLIENTE -->
       <div class="tab-panel" id="calc-margem">
-        <p style="font-size:.88rem;color:var(--texto2);margin-bottom:20px">Informe o preço que a Ferretti vende para o cliente e o preço que o cliente pratica nas vendas dele. A calculadora mostra a margem e o markup que o cliente está usando.</p>
+        <p style="font-size:.88rem;color:var(--texto2);margin-bottom:20px">Informe o preço que a Ferretti vende para o cliente e o preço que o cliente pratica nas vendas dele. Os créditos de ICMS e PIS/COFINS reduzem o custo líquido real do cliente.</p>
 
         <div class="form-grid-3">
           <div class="form-group">
             <label>Valor vendido ao cliente (R$)</label>
             <input type="number" id="mg-custo" placeholder="Preço de venda da Ferretti" step="0.01" min="0" oninput="calcMargem()">
-            <small>Custo de compra do cliente</small>
+            <small>Custo bruto de compra do cliente</small>
           </div>
           <div class="form-group">
             <label>Valor de venda do cliente (R$)</label>
             <input type="number" id="mg-venda" placeholder="Preço que o cliente cobra" step="0.01" min="0" oninput="calcMargem()">
             <small>Preço de venda ao consumidor final</small>
           </div>
-          <div class="form-group" style="justify-content:flex-end">
-            <button class="btn-limpar" style="margin-top:0" onclick="limparMargem()">Limpar</button>
+          <div class="form-group" style="justify-content:flex-end;padding-bottom:2px">
+            <button class="btn-limpar" style="margin-top:0;width:100%" onclick="limparMargem()">Limpar</button>
           </div>
         </div>
+
+        <details class="calc-avancado">
+          <summary>⚙️ Créditos tributários do cliente — ajuste manual</summary>
+          <div class="form-grid-3" style="margin-top:14px">
+            <div class="form-group">
+              <label>ICMS Entrada do cliente (%)</label>
+              <input type="number" id="mg-icms" placeholder="Ex: 12" step="0.01" min="0" value="12" oninput="calcMargem()">
+              <small>Crédito de ICMS que o cliente aproveita na compra</small>
+            </div>
+            <div class="form-group">
+              <label>PIS/COFINS do cliente (%)</label>
+              <input type="number" id="mg-pis" placeholder="Ex: 9,25" step="0.01" min="0" value="9.25" oninput="calcMargem()">
+              <small>0% se monofásico ou Simples Nacional</small>
+            </div>
+            <div class="form-group">
+              <label style="visibility:hidden">.</label>
+              <div style="font-size:.8rem;color:var(--texto2);background:var(--cinza2);border-radius:8px;padding:10px 12px;line-height:1.6">
+                Deixe <strong>0%</strong> nos dois campos se o cliente for <strong>Simples Nacional</strong> ou <strong>não aproveitar créditos</strong>.
+              </div>
+            </div>
+          </div>
+        </details>
 
         <div id="resultado-margem" style="display:none;margin-top:20px">
           <div class="etapas-grid" style="grid-template-columns:repeat(4,1fr)">
             <div class="etapa-card">
-              <div class="etapa-label">Custo do Cliente</div>
+              <div class="etapa-label">Custo Bruto</div>
               <div class="etapa-valor" id="mg-r-custo">—</div>
-              <div class="etapa-sub">Valor de compra</div>
+              <div class="etapa-sub">Valor pago à Ferretti</div>
             </div>
             <div class="etapa-card">
-              <div class="etapa-label">Preço de Venda</div>
-              <div class="etapa-valor" id="mg-r-venda">—</div>
-              <div class="etapa-sub">Valor cobrado ao final</div>
+              <div class="etapa-label">Custo Líquido</div>
+              <div class="etapa-valor" id="mg-r-liquido">—</div>
+              <div class="etapa-sub">Após créditos tributários</div>
             </div>
             <div class="etapa-card destaque">
               <div class="etapa-label">Margem</div>
@@ -428,20 +450,23 @@ footer strong{color:#fff}
             <div class="etapa-card destaque">
               <div class="etapa-label">Markup</div>
               <div class="etapa-valor color-azul" id="mg-r-markup">—</div>
-              <div class="etapa-sub">Lucro ÷ Custo</div>
+              <div class="etapa-sub">Lucro ÷ Custo líquido</div>
             </div>
           </div>
           <table class="detalhe-table" style="margin-top:8px">
-            <tr><td>Custo de compra (valor Ferretti)</td><td id="mg-t-custo">—</td></tr>
-            <tr class="highlight"><td>Preço de venda do cliente</td><td id="mg-t-venda">—</td></tr>
-            <tr><td>Lucro bruto</td><td id="mg-t-lucro">—</td></tr>
+            <tr><td>Custo bruto (valor Ferretti)</td><td id="mg-t-custo">—</td></tr>
+            <tr class="highlight"><td id="mg-t-icms-label">(−) Crédito ICMS entrada</td><td id="mg-t-icms">—</td></tr>
+            <tr class="highlight"><td id="mg-t-pis-label">(−) Crédito PIS/COFINS entrada</td><td id="mg-t-pis">—</td></tr>
+            <tr class="total"><td>= Custo líquido</td><td id="mg-t-liquido">—</td></tr>
+            <tr><td>Preço de venda do cliente</td><td id="mg-t-venda">—</td></tr>
+            <tr><td>Lucro bruto (venda − custo líquido)</td><td id="mg-t-lucro">—</td></tr>
             <tr class="total"><td>Margem (lucro ÷ preço de venda)</td><td id="mg-t-margem">—</td></tr>
-            <tr class="total"><td>Markup (lucro ÷ custo)</td><td id="mg-t-markup">—</td></tr>
+            <tr class="total"><td>Markup (lucro ÷ custo líquido)</td><td id="mg-t-markup">—</td></tr>
           </table>
           <div class="explicacao-box" style="margin-top:12px">
             <h5>Diferença entre Margem e Markup</h5>
             <p><strong>Margem</strong> = Lucro ÷ Preço de venda &nbsp;|&nbsp; Representa quanto do preço final é lucro.<br>
-            <strong>Markup</strong> = Lucro ÷ Custo &nbsp;|&nbsp; Representa quanto o custo foi multiplicado para chegar no preço.</p>
+            <strong>Markup</strong> = Lucro ÷ Custo líquido &nbsp;|&nbsp; Representa o quanto o custo real foi multiplicado para chegar no preço.</p>
           </div>
         </div>
       </div>
@@ -1234,26 +1259,41 @@ function calcExterna() {
 
 // ══════════ CALCULADORA MARGEM DO CLIENTE ══════════
 function calcMargem() {
-  const custo = parseFloat(document.getElementById('mg-custo').value) || 0;
-  const venda = parseFloat(document.getElementById('mg-venda').value) || 0;
-  const div   = document.getElementById('resultado-margem');
-  if (!custo || !venda || venda <= custo) { div.style.display = 'none'; return; }
-  const lucro  = venda - custo;
-  const margem = (lucro / venda) * 100;
-  const markup = (lucro / custo) * 100;
+  const custo  = parseFloat(document.getElementById('mg-custo').value) || 0;
+  const venda  = parseFloat(document.getElementById('mg-venda').value) || 0;
+  const icmsP  = (parseFloat(document.getElementById('mg-icms').value) || 0) / 100;
+  const pisP   = (parseFloat(document.getElementById('mg-pis').value)  || 0) / 100;
+  const div    = document.getElementById('resultado-margem');
+  if (!custo || !venda || venda <= 0) { div.style.display = 'none'; return; }
+
+  const credIcms  = custo * icmsP;
+  const credPis   = custo * pisP;
+  const liquido   = custo - credIcms - credPis;
+  const lucro     = venda - liquido;
+  const margem    = (lucro / venda) * 100;
+  const markup    = (lucro / liquido) * 100;
+
   div.style.display = 'block';
-  document.getElementById('mg-r-custo').textContent  = fmt(custo);
-  document.getElementById('mg-r-venda').textContent  = fmt(venda);
-  document.getElementById('mg-r-margem').textContent = fmtP(margem);
-  document.getElementById('mg-r-markup').textContent = fmtP(markup);
-  document.getElementById('mg-t-custo').textContent  = fmt(custo);
-  document.getElementById('mg-t-venda').textContent  = fmt(venda);
-  document.getElementById('mg-t-lucro').textContent  = fmt(lucro);
-  document.getElementById('mg-t-margem').textContent = fmtP(margem);
-  document.getElementById('mg-t-markup').textContent = fmtP(markup);
+  document.getElementById('mg-r-custo').textContent   = fmt(custo);
+  document.getElementById('mg-r-liquido').textContent = fmt(liquido);
+  document.getElementById('mg-r-margem').textContent  = fmtP(margem);
+  document.getElementById('mg-r-markup').textContent  = fmtP(markup);
+
+  document.getElementById('mg-t-custo').textContent   = fmt(custo);
+  document.getElementById('mg-t-icms-label').textContent = '(−) Crédito ICMS entrada (' + fmtP(icmsP*100) + ')';
+  document.getElementById('mg-t-icms').textContent    = icmsP > 0 ? '− ' + fmt(credIcms) : '—';
+  document.getElementById('mg-t-pis-label').textContent  = '(−) Crédito PIS/COFINS entrada (' + fmtP(pisP*100) + ')';
+  document.getElementById('mg-t-pis').textContent     = pisP  > 0 ? '− ' + fmt(credPis)  : '—';
+  document.getElementById('mg-t-liquido').textContent = fmt(liquido);
+  document.getElementById('mg-t-venda').textContent   = fmt(venda);
+  document.getElementById('mg-t-lucro').textContent   = fmt(lucro);
+  document.getElementById('mg-t-margem').textContent  = fmtP(margem);
+  document.getElementById('mg-t-markup').textContent  = fmtP(markup);
 }
 function limparMargem() {
   ['mg-custo','mg-venda'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('mg-icms').value = '12';
+  document.getElementById('mg-pis').value  = '9.25';
   document.getElementById('resultado-margem').style.display = 'none';
 }
 
