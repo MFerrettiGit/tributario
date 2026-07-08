@@ -530,6 +530,11 @@ footer strong{color:#fff}
             </div>
           </div>
 
+          <!-- nota receita líquida -->
+          <div style="margin-top:12px;padding:10px 14px;background:var(--cinza2);border-radius:8px;font-size:.8rem;color:var(--texto2)">
+            💡 <strong>Receita líquida</strong> = valor que sobra da venda após recolher ICMS e PIS/COFINS sobre a saída. A diferença entre a receita líquida e o custo líquido é o lucro real do cliente.
+          </div>
+
           <!-- IDs ocultos para compatibilidade com o JS -->
           <span id="mg-r-custo" style="display:none"></span>
           <span id="mg-r-liquido" style="display:none"></span>
@@ -1301,28 +1306,112 @@ function calcExterna() {
   const pisSaiVal    = precoVenda * pisCof;
   const margemVal    = precoVenda * margem;
 
+  const recLiq = precoVenda - icmsSaiVal - pisSaiVal;
+
   const div = document.getElementById('resultado-ext');
   div.style.display = 'block';
-  const prodInfo = extProd ? '<p style="font-size:.85rem;color:var(--texto2);margin-top:2px">'+extProd.d+' · NCM '+extProd.n+'</p>' : '';
+  const prodInfo = extProd ? '<p style="font-size:.82rem;color:var(--texto2);margin-top:2px">'+extProd.d+' · NCM '+extProd.n+'</p>' : '';
+
+  const blocoEntrada =
+    '<div style="background:var(--branco);border-radius:10px;border:1.5px solid var(--cinza3);overflow:hidden">'+
+      '<div style="background:var(--cinza2);padding:10px 16px;display:flex;align-items:center;gap:8px">'+
+        '<span style="font-size:1rem">📥</span>'+
+        '<span style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--texto2)">Entrada — custo do cliente</span>'+
+      '</div>'+
+      '<div style="padding:14px 16px">'+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">'+
+          '<span style="font-size:.85rem;color:var(--texto2)">Custo bruto (valor Ferretti)</span>'+
+          '<span style="font-weight:700;font-size:.95rem">'+fmt(preco)+'</span>'+
+        '</div>'+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">'+
+          '<span style="font-size:.82rem;color:var(--verde)">(−) Crédito ICMS entrada ('+fmtP(icmsE*100)+')</span>'+
+          '<span style="font-size:.85rem;color:var(--verde)">− '+fmt(creditoIcms)+'</span>'+
+        '</div>'+
+        (pisCof>0?
+          '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">'+
+            '<span style="font-size:.82rem;color:var(--verde)">(−) Crédito PIS/COFINS entrada ('+fmtP(pisCof*100)+')</span>'+
+            '<span style="font-size:.85rem;color:var(--verde)">− '+fmt(creditoPis)+'</span>'+
+          '</div>':
+          '<div style="display:flex;justify-content:space-between;margin-bottom:4px">'+
+            '<span style="font-size:.82rem;color:var(--texto2)">(−) Crédito PIS/COFINS (monofásico)</span>'+
+            '<span style="font-size:.85rem;color:var(--texto2)">—</span>'+
+          '</div>')+
+        '<div style="height:12px"></div>'+
+        '<div style="border-top:2px solid var(--cinza3);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline">'+
+          '<span style="font-size:.85rem;font-weight:700">= Custo líquido</span>'+
+          '<span style="font-weight:800;font-size:1.1rem;color:var(--azul2)">'+fmt(precoLiq)+'</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  const blocoSaida =
+    '<div style="background:var(--branco);border-radius:10px;border:1.5px solid var(--cinza3);overflow:hidden">'+
+      '<div style="background:var(--cinza2);padding:10px 16px;display:flex;align-items:center;gap:8px">'+
+        '<span style="font-size:1rem">📤</span>'+
+        '<span style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--texto2)">Saída — preço de venda sugerido</span>'+
+      '</div>'+
+      '<div style="padding:14px 16px">'+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">'+
+          '<span style="font-size:.85rem;color:var(--texto2)">Preço de venda ao consumidor</span>'+
+          '<span style="font-weight:700;font-size:.95rem">'+fmt(precoVenda)+'</span>'+
+        '</div>'+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">'+
+          '<span style="font-size:.82rem;color:var(--vermelho)">(−) ICMS saída ('+fmtP(icmsS*100)+')</span>'+
+          '<span style="font-size:.85rem;color:var(--vermelho)">− '+fmt(icmsSaiVal)+'</span>'+
+        '</div>'+
+        (pisCof>0?
+          '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">'+
+            '<span style="font-size:.82rem;color:var(--vermelho)">(−) PIS/COFINS saída ('+fmtP(pisCof*100)+')</span>'+
+            '<span style="font-size:.85rem;color:var(--vermelho)">− '+fmt(pisSaiVal)+'</span>'+
+          '</div>':
+          '<div style="display:flex;justify-content:space-between;margin-bottom:4px">'+
+            '<span style="font-size:.82rem;color:var(--texto2)">(−) PIS/COFINS (monofásico)</span>'+
+            '<span style="font-size:.85rem;color:var(--texto2)">—</span>'+
+          '</div>')+
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">'+
+          '<span style="font-size:.82rem;color:var(--amarelo)">(−) Margem do cliente ('+fmtP(margem*100)+')</span>'+
+          '<span style="font-size:.85rem;color:var(--amarelo)">− '+fmt(margemVal)+'</span>'+
+        '</div>'+
+        '<div style="border-top:2px solid var(--cinza3);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline">'+
+          '<span style="font-size:.85rem;font-weight:700">= Receita líquida</span>'+
+          '<span style="font-weight:800;font-size:1.1rem;color:var(--azul2)">'+fmt(recLiq)+'</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  const barraFinal =
+    '<div style="background:linear-gradient(135deg,var(--azul),var(--azul2));border-radius:10px;padding:20px 24px;color:#fff">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.2)">'+
+        '<span style="font-size:.88rem;opacity:.85">Preço de venda sugerido ao consumidor final</span>'+
+        '<span style="font-size:1.5rem;font-weight:800">'+fmt(precoVenda)+'</span>'+
+      '</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:center">'+
+        '<div>'+
+          '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;opacity:.75;margin-bottom:4px">Margem do Cliente</div>'+
+          '<div style="font-size:2rem;font-weight:800">'+fmtP(margem*100)+'</div>'+
+          '<div style="font-size:.75rem;opacity:.7;margin-top:4px">Sobre o preço de venda</div>'+
+        '</div>'+
+        '<div style="border-left:1px solid rgba(255,255,255,.2)">'+
+          '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;opacity:.75;margin-bottom:4px">Markup</div>'+
+          '<div style="font-size:2rem;font-weight:800">'+fmtP((precoVenda/preco-1)*100)+'</div>'+
+          '<div style="font-size:.75rem;opacity:.7;margin-top:4px">Preço venda ÷ Custo bruto − 1</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  const notaMonofasico = (extProd&&extProd.p==='M')
+    ? '<div class="explicacao-box" style="margin-top:12px"><h5>Regime Monofásico</h5><p>PIS/COFINS recolhido concentrado pelo fabricante. A Ferretti não recolhe PIS/COFINS na revenda — alíquota zero na saída.</p></div>'
+    : '';
+
   div.innerHTML =
-    '<div class="resultado-header"><h4>📊 Resultado'+(extProd?' — '+extProd.cod:'')+'</h4>'+prodInfo+'</div>'+
-    '<div class="etapas-grid" style="grid-template-columns:repeat(3,1fr)">'+
-      '<div class="etapa-card"><div class="etapa-label">Preço do Produto</div><div class="etapa-valor">'+fmt(preco)+'</div><div class="etapa-sub">Custo de compra</div></div>'+
-      '<div class="etapa-card"><div class="etapa-label">Preço Líquido</div><div class="etapa-valor">'+fmt(precoLiq)+'</div><div class="etapa-sub">Após créditos ICMS'+(pisCof>0?' + PIS/COFINS':'')+'</div></div>'+
-      '<div class="etapa-card destaque"><div class="etapa-label">Preço de Venda</div><div class="etapa-valor">'+fmt(precoVenda)+'</div><div class="etapa-sub">Com margem do cliente</div></div>'+
-    '</div>'+
-    '<table class="detalhe-table">'+
-      '<tr><td>Preço de compra (produto)</td><td>'+fmt(preco)+'</td></tr>'+
-      '<tr class="highlight"><td>(−) Crédito ICMS entrada ('+fmtP(icmsE*100)+')</td><td>− '+fmt(creditoIcms)+'</td></tr>'+
-      (pisCof>0?'<tr class="highlight"><td>(−) Crédito PIS/COFINS entrada ('+fmtP(pisCof*100)+')</td><td>− '+fmt(creditoPis)+'</td></tr>':'')+
-      '<tr class="total"><td>= Preço Líquido</td><td>'+fmt(precoLiq)+'</td></tr>'+
-      '<tr><td>Divisor: 1 − margem − ICMS saída'+(pisCof>0?' − PIS/COFINS':'')+'</td><td>'+(divisor*100).toFixed(4)+'%</td></tr>'+
-      '<tr class="total"><td>= Preço de Venda ao Cliente</td><td>'+fmt(precoVenda)+'</td></tr>'+
-      '<tr><td>  ICMS saída ('+fmtP(icmsS*100)+')</td><td>'+fmt(icmsSaiVal)+'</td></tr>'+
-      (pisCof>0?'<tr><td>  PIS/COFINS saída ('+fmtP(pisCof*100)+')</td><td>'+fmt(pisSaiVal)+'</td></tr>':'')+
-      '<tr><td>  Margem do cliente ('+fmtP(margem*100)+')</td><td>'+fmt(margemVal)+'</td></tr>'+
-    '</table>'+
-    (extProd&&extProd.p==='M'?'<div class="explicacao-box" style="margin-top:12px"><h5>Regime Monofásico</h5><p>PIS/COFINS recolhido concentrado pelo fabricante. A Ferretti não recolhe PIS/COFINS na revenda — alíquota zero.</p></div>':'');
+    (extProd ? '<div style="font-size:.82rem;color:var(--texto2);margin-bottom:12px;padding:8px 12px;background:var(--cinza2);border-radius:8px">'+
+      '📦 <strong>'+extProd.cod+'</strong> — '+extProd.d+' · NCM '+extProd.n+'</div>' : '')+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">'+blocoEntrada+blocoSaida+'</div>'+
+    barraFinal+
+    notaMonofasico+
+    '<div style="margin-top:12px;padding:10px 14px;background:var(--cinza2);border-radius:8px;font-size:.8rem;color:var(--texto2)">'+
+      '💡 <strong>Receita líquida</strong> = valor que sobra da venda após recolher ICMS e PIS/COFINS sobre a saída. Deve cobrir o custo líquido e ainda gerar a margem desejada.'+
+    '</div>';
 }
 
 // ══════════ CALCULADORA MARGEM DO CLIENTE ══════════
