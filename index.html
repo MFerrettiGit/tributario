@@ -390,9 +390,33 @@ footer strong{color:#fff}
 
       <!-- CALC MARGEM DO CLIENTE -->
       <div class="tab-panel" id="calc-margem">
-        <p style="font-size:.88rem;color:var(--texto2);margin-bottom:20px">Informe o preço que a Ferretti vende para o cliente e o preço que o cliente pratica nas vendas dele. Os créditos de ICMS e PIS/COFINS reduzem o custo líquido real do cliente.</p>
+        <p style="font-size:.88rem;color:var(--texto2);margin-bottom:20px">Selecione o produto para preencher as alíquotas automaticamente. Informe o preço que a Ferretti vende e o preço que o cliente pratica.</p>
 
+        <!-- linha 1: produto + NCM -->
+        <div class="form-grid-3" style="align-items:end">
+          <div class="form-group" style="grid-column:span 2">
+            <label>Produto</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="mg-busca" placeholder="Código ou descrição do produto..." autocomplete="off" oninput="mgBusca(this.value)" onfocus="mgBusca(this.value)">
+              <div id="mg-dropdown" class="ac-dropdown hidden"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>NCM</label>
+            <input type="text" id="mg-ncm" placeholder="Ex: 33072010" maxlength="10" oninput="mgPorNCM(this.value)">
+          </div>
+        </div>
+
+        <div id="mg-aliq-strip" class="aliq-strip hidden"></div>
+
+        <!-- linha 2: estado + valores -->
         <div class="form-grid-3">
+          <div class="form-group">
+            <label>Estado do Cliente</label>
+            <select id="mg-estado" onchange="mgAutoAliq()">
+              <option value="SP">SP — São Paulo (padrão)</option>
+            </select>
+          </div>
           <div class="form-group">
             <label>Valor vendido ao cliente (R$)</label>
             <input type="number" id="mg-custo" placeholder="Preço de venda da Ferretti" step="0.01" min="0" oninput="calcMargem()">
@@ -403,32 +427,30 @@ footer strong{color:#fff}
             <input type="number" id="mg-venda" placeholder="Preço que o cliente cobra" step="0.01" min="0" oninput="calcMargem()">
             <small>Preço de venda ao consumidor final</small>
           </div>
-          <div class="form-group" style="justify-content:flex-end;padding-bottom:2px">
-            <button class="btn-limpar" style="margin-top:0;width:100%" onclick="limparMargem()">Limpar</button>
-          </div>
         </div>
 
         <details class="calc-avancado">
-          <summary>⚙️ Créditos tributários do cliente — ajuste manual</summary>
+          <summary>⚙️ Alíquotas — ajuste manual</summary>
           <div class="form-grid-3" style="margin-top:14px">
             <div class="form-group">
-              <label>ICMS Entrada do cliente (%)</label>
-              <input type="number" id="mg-icms" placeholder="Ex: 12" step="0.01" min="0" value="12" oninput="calcMargem()">
-              <small>Crédito de ICMS que o cliente aproveita na compra</small>
+              <label>ICMS Entrada (%)</label>
+              <input type="number" id="mg-icms-ent" step="0.01" min="0" placeholder="Auto" oninput="this.dataset.manual='1';calcMargem()">
+              <small id="mg-icms-ent-hint">Preenchido pelo produto</small>
             </div>
             <div class="form-group">
-              <label>PIS/COFINS do cliente (%)</label>
-              <input type="number" id="mg-pis" placeholder="Ex: 9,25" step="0.01" min="0" value="9.25" oninput="calcMargem()">
-              <small>0% se monofásico ou Simples Nacional</small>
+              <label>ICMS Saída — cliente (%)</label>
+              <input type="number" id="mg-icms-sai" step="0.01" min="0" placeholder="Auto" oninput="this.dataset.manual='1';calcMargem()">
+              <small id="mg-icms-sai-hint">Alíquota interna do estado</small>
             </div>
             <div class="form-group">
-              <label style="visibility:hidden">.</label>
-              <div style="font-size:.8rem;color:var(--texto2);background:var(--cinza2);border-radius:8px;padding:10px 12px;line-height:1.6">
-                Deixe <strong>0%</strong> nos dois campos se o cliente for <strong>Simples Nacional</strong> ou <strong>não aproveitar créditos</strong>.
-              </div>
+              <label>PIS/COFINS (%)</label>
+              <input type="number" id="mg-piscofins" step="0.01" min="0" placeholder="Auto" oninput="this.dataset.manual='1';calcMargem()">
+              <small id="mg-piscofins-hint">0% se monofásico ou Simples</small>
             </div>
           </div>
         </details>
+
+        <button class="btn-limpar" style="margin-top:16px" onclick="limparMargem()">Limpar</button>
 
         <div id="resultado-margem" style="display:none;margin-top:20px">
           <div class="etapas-grid" style="grid-template-columns:repeat(4,1fr)">
@@ -440,7 +462,7 @@ footer strong{color:#fff}
             <div class="etapa-card">
               <div class="etapa-label">Custo Líquido</div>
               <div class="etapa-valor" id="mg-r-liquido">—</div>
-              <div class="etapa-sub">Após créditos tributários</div>
+              <div class="etapa-sub">Após créditos de entrada</div>
             </div>
             <div class="etapa-card destaque">
               <div class="etapa-label">Margem</div>
@@ -455,11 +477,14 @@ footer strong{color:#fff}
           </div>
           <table class="detalhe-table" style="margin-top:8px">
             <tr><td>Custo bruto (valor Ferretti)</td><td id="mg-t-custo">—</td></tr>
-            <tr class="highlight"><td id="mg-t-icms-label">(−) Crédito ICMS entrada</td><td id="mg-t-icms">—</td></tr>
-            <tr class="highlight"><td id="mg-t-pis-label">(−) Crédito PIS/COFINS entrada</td><td id="mg-t-pis">—</td></tr>
+            <tr class="highlight"><td id="mg-t-icms-ent-label">(−) Crédito ICMS entrada</td><td id="mg-t-icms-ent">—</td></tr>
+            <tr class="highlight"><td id="mg-t-pis-ent-label">(−) Crédito PIS/COFINS entrada</td><td id="mg-t-pis-ent">—</td></tr>
             <tr class="total"><td>= Custo líquido</td><td id="mg-t-liquido">—</td></tr>
             <tr><td>Preço de venda do cliente</td><td id="mg-t-venda">—</td></tr>
-            <tr><td>Lucro bruto (venda − custo líquido)</td><td id="mg-t-lucro">—</td></tr>
+            <tr class="highlight"><td id="mg-t-icms-sai-label">(−) ICMS saída</td><td id="mg-t-icms-sai">—</td></tr>
+            <tr class="highlight"><td id="mg-t-pis-sai-label">(−) PIS/COFINS saída</td><td id="mg-t-pis-sai">—</td></tr>
+            <tr><td>= Receita líquida</td><td id="mg-t-rec-liq">—</td></tr>
+            <tr class="total"><td>Lucro (receita líquida − custo líquido)</td><td id="mg-t-lucro">—</td></tr>
             <tr class="total"><td>Margem (lucro ÷ preço de venda)</td><td id="mg-t-margem">—</td></tr>
             <tr class="total"><td>Markup (lucro ÷ custo líquido)</td><td id="mg-t-markup">—</td></tr>
           </table>
@@ -1258,20 +1283,98 @@ function calcExterna() {
 }
 
 // ══════════ CALCULADORA MARGEM DO CLIENTE ══════════
-function calcMargem() {
-  const custo  = parseFloat(document.getElementById('mg-custo').value) || 0;
-  const venda  = parseFloat(document.getElementById('mg-venda').value) || 0;
-  const icmsP  = (parseFloat(document.getElementById('mg-icms').value) || 0) / 100;
-  const pisP   = (parseFloat(document.getElementById('mg-pis').value)  || 0) / 100;
-  const div    = document.getElementById('resultado-margem');
-  if (!custo || !venda || venda <= 0) { div.style.display = 'none'; return; }
+let mgProd = null;
 
-  const credIcms  = custo * icmsP;
-  const credPis   = custo * pisP;
-  const liquido   = custo - credIcms - credPis;
-  const lucro     = venda - liquido;
-  const margem    = (lucro / venda) * 100;
-  const markup    = (lucro / liquido) * 100;
+function mgBusca(q) {
+  const dd = document.getElementById('mg-dropdown');
+  if (!q || q.length < 2) { dd.classList.add('hidden'); return; }
+  const ql = q.toLowerCase();
+  const matches = Object.entries(PROD)
+    .filter(([k,v]) => k.toLowerCase().includes(ql) || v.d.toLowerCase().includes(ql))
+    .slice(0, 12);
+  if (!matches.length) { dd.classList.add('hidden'); return; }
+  dd.innerHTML = matches.map(([k,v]) =>
+    '<div class="ac-item" onclick="mgSelecionarProd(\''+k+'\')">' +
+    '<strong>'+k+'</strong><span class="ac-marca">'+v.m+'</span><br>' +
+    '<span style="color:var(--texto2);font-size:.82rem">'+v.d+'</span></div>'
+  ).join('');
+  dd.classList.remove('hidden');
+}
+
+function mgSelecionarProd(cod) {
+  if (!PROD[cod]) return;
+  mgProd = Object.assign({cod:cod}, PROD[cod]);
+  document.getElementById('mg-busca').value = cod + ' — ' + mgProd.d;
+  document.getElementById('mg-ncm').value   = mgProd.n;
+  document.getElementById('mg-dropdown').classList.add('hidden');
+  ['mg-icms-ent','mg-icms-sai','mg-piscofins'].forEach(id => delete document.getElementById(id).dataset.manual);
+  mgAutoAliq();
+}
+
+function mgPorNCM(ncm) {
+  if (!ncm || ncm.length < 8) return;
+  const found = Object.entries(PROD).find(([,v]) => v.n === ncm);
+  if (found) mgSelecionarProd(found[0]);
+}
+
+function mgAutoAliq() {
+  const estado = document.getElementById('mg-estado').value;
+  if (!mgProd) return;
+
+  const icmsEnt = mgProd.r > 0 ? 0.12 : mgProd.i;
+  const icmsSai = (!estado || estado === 'SP') ? mgProd.i : (ESTADOS[estado].int + ESTADOS[estado].fecp) / 100;
+  const pisTaxa = mgProd.p === 'M' ? 0 : 0.0925;
+
+  const entEl = document.getElementById('mg-icms-ent');
+  const saiEl = document.getElementById('mg-icms-sai');
+  const pisEl = document.getElementById('mg-piscofins');
+
+  if (!entEl.dataset.manual) {
+    entEl.value = (icmsEnt * 100).toFixed(2);
+    document.getElementById('mg-icms-ent-hint').textContent = mgProd.r > 0 ? 'Base reduzida: 12%' : 'Alíquota do cadastro';
+  }
+  if (!saiEl.dataset.manual) {
+    saiEl.value = (icmsSai * 100).toFixed(2);
+    document.getElementById('mg-icms-sai-hint').textContent = (!estado||estado==='SP') ? 'SP — alíquota conforme NCM/cadastro' : estado + ': alíquota interna';
+  }
+  if (!pisEl.dataset.manual) {
+    pisEl.value = (pisTaxa * 100).toFixed(2);
+    document.getElementById('mg-piscofins-hint').textContent = mgProd.p === 'M' ? 'Monofásico — zero na revenda' : 'Lucro Real 9,25%';
+  }
+
+  // Badge strip
+  const strip = document.getElementById('mg-aliq-strip');
+  let html = '<span class="aliq-badge auto">📥 Entrada: '+(icmsEnt*100).toFixed(1)+'%'+(mgProd.r>0?' (base red.)':'')+'</span>';
+  html += '<span class="aliq-badge inter">📤 Saída '+(estado||'SP')+': '+(icmsSai*100).toFixed(1)+'%</span>';
+  html += pisTaxa > 0
+    ? '<span class="aliq-badge pis">🧾 PIS/COFINS: '+(pisTaxa*100).toFixed(2)+'%</span>'
+    : '<span class="aliq-badge warn">⚡ Monofásico: PIS/COFINS zero na revenda</span>';
+  strip.innerHTML = html;
+  strip.classList.remove('hidden');
+
+  calcMargem();
+}
+
+function calcMargem() {
+  const custo   = parseFloat(document.getElementById('mg-custo').value)      || 0;
+  const venda   = parseFloat(document.getElementById('mg-venda').value)      || 0;
+  const icmsEP  = (parseFloat(document.getElementById('mg-icms-ent').value)  || 0) / 100;
+  const icmsSP  = (parseFloat(document.getElementById('mg-icms-sai').value)  || 0) / 100;
+  const pisP    = (parseFloat(document.getElementById('mg-piscofins').value) || 0) / 100;
+  const div     = document.getElementById('resultado-margem');
+  if (!custo || !venda) { div.style.display = 'none'; return; }
+
+  const credIcmsEnt = custo * icmsEP;
+  const credPisEnt  = custo * pisP;
+  const liquido     = custo - credIcmsEnt - credPisEnt;
+
+  const icmsSaiVal  = venda * icmsSP;
+  const pisSaiVal   = venda * pisP;
+  const recLiq      = venda - icmsSaiVal - pisSaiVal;
+
+  const lucro  = recLiq - liquido;
+  const margem = (lucro / venda) * 100;
+  const markup = liquido > 0 ? (lucro / liquido) * 100 : 0;
 
   div.style.display = 'block';
   document.getElementById('mg-r-custo').textContent   = fmt(custo);
@@ -1279,27 +1382,41 @@ function calcMargem() {
   document.getElementById('mg-r-margem').textContent  = fmtP(margem);
   document.getElementById('mg-r-markup').textContent  = fmtP(markup);
 
-  document.getElementById('mg-t-custo').textContent   = fmt(custo);
-  document.getElementById('mg-t-icms-label').textContent = '(−) Crédito ICMS entrada (' + fmtP(icmsP*100) + ')';
-  document.getElementById('mg-t-icms').textContent    = icmsP > 0 ? '− ' + fmt(credIcms) : '—';
-  document.getElementById('mg-t-pis-label').textContent  = '(−) Crédito PIS/COFINS entrada (' + fmtP(pisP*100) + ')';
-  document.getElementById('mg-t-pis').textContent     = pisP  > 0 ? '− ' + fmt(credPis)  : '—';
-  document.getElementById('mg-t-liquido').textContent = fmt(liquido);
-  document.getElementById('mg-t-venda').textContent   = fmt(venda);
-  document.getElementById('mg-t-lucro').textContent   = fmt(lucro);
-  document.getElementById('mg-t-margem').textContent  = fmtP(margem);
-  document.getElementById('mg-t-markup').textContent  = fmtP(markup);
+  document.getElementById('mg-t-custo').textContent       = fmt(custo);
+  document.getElementById('mg-t-icms-ent-label').textContent = '(−) Crédito ICMS entrada (' + fmtP(icmsEP*100) + ')';
+  document.getElementById('mg-t-icms-ent').textContent    = icmsEP > 0 ? '− ' + fmt(credIcmsEnt) : '—';
+  document.getElementById('mg-t-pis-ent-label').textContent  = '(−) Crédito PIS/COFINS entrada (' + fmtP(pisP*100) + ')';
+  document.getElementById('mg-t-pis-ent').textContent     = pisP  > 0 ? '− ' + fmt(credPisEnt)  : '—';
+  document.getElementById('mg-t-liquido').textContent     = fmt(liquido);
+  document.getElementById('mg-t-venda').textContent       = fmt(venda);
+  document.getElementById('mg-t-icms-sai-label').textContent = '(−) ICMS saída (' + fmtP(icmsSP*100) + ')';
+  document.getElementById('mg-t-icms-sai').textContent   = icmsSP > 0 ? '− ' + fmt(icmsSaiVal) : '—';
+  document.getElementById('mg-t-pis-sai-label').textContent  = '(−) PIS/COFINS saída (' + fmtP(pisP*100) + ')';
+  document.getElementById('mg-t-pis-sai').textContent    = pisP   > 0 ? '− ' + fmt(pisSaiVal)  : '—';
+  document.getElementById('mg-t-rec-liq').textContent    = fmt(recLiq);
+  document.getElementById('mg-t-lucro').textContent      = fmt(lucro);
+  document.getElementById('mg-t-margem').textContent     = fmtP(margem);
+  document.getElementById('mg-t-markup').textContent     = fmtP(markup);
 }
+
 function limparMargem() {
-  ['mg-custo','mg-venda'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('mg-icms').value = '12';
-  document.getElementById('mg-pis').value  = '9.25';
+  mgProd = null;
+  ['mg-busca','mg-ncm','mg-custo','mg-venda',
+   'mg-icms-ent','mg-icms-sai','mg-piscofins'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; delete el.dataset.manual; }
+  });
+  const strip = document.getElementById('mg-aliq-strip');
+  strip.innerHTML = ''; strip.classList.add('hidden');
   document.getElementById('resultado-margem').style.display = 'none';
 }
 
-// Fechar dropdown ao clicar fora
+// Fechar dropdowns ao clicar fora
 document.addEventListener('click', e => {
-  if (!e.target.closest('.autocomplete-wrap')) document.getElementById('ext-dropdown').classList.add('hidden');
+  if (!e.target.closest('.autocomplete-wrap')) {
+    document.getElementById('ext-dropdown').classList.add('hidden');
+    document.getElementById('mg-dropdown').classList.add('hidden');
+  }
 });
 
 // Marcar como manual quando o usuário edita os campos da externa
@@ -1310,14 +1427,16 @@ document.addEventListener('click', e => {
 
 // ══════════ INIT ══════════
 initSelects();
-// Popular estados na externa
+// Popular estados na externa e na margem
 (function(){
-  const sel = document.getElementById('ext-estado');
-  Object.keys(ESTADOS).sort().forEach(uf => {
-    if (uf === 'SP') return; // SP já é padrão
-    const opt = document.createElement('option');
-    opt.value = uf; opt.textContent = uf + ' — ' + ESTADOS[uf].n;
-    sel.appendChild(opt);
+  ['ext-estado','mg-estado'].forEach(selId => {
+    const sel = document.getElementById(selId);
+    Object.keys(ESTADOS).sort().forEach(uf => {
+      if (uf === 'SP') return;
+      const opt = document.createElement('option');
+      opt.value = uf; opt.textContent = uf + ' — ' + ESTADOS[uf].n;
+      sel.appendChild(opt);
+    });
   });
 })();
 initTabela();
