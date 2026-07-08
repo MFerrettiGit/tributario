@@ -452,47 +452,90 @@ footer strong{color:#fff}
 
         <button class="btn-limpar" style="margin-top:16px" onclick="limparMargem()">Limpar</button>
 
-        <div id="resultado-margem" style="display:none;margin-top:20px">
-          <div class="etapas-grid" style="grid-template-columns:repeat(4,1fr)">
-            <div class="etapa-card">
-              <div class="etapa-label">Custo Bruto</div>
-              <div class="etapa-valor" id="mg-r-custo">—</div>
-              <div class="etapa-sub">Valor pago à Ferretti</div>
+        <div id="resultado-margem" style="display:none;margin-top:24px">
+
+          <!-- Blocos ENTRADA / SAÍDA lado a lado -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+            <!-- ENTRADA -->
+            <div style="background:var(--branco);border-radius:10px;border:1.5px solid var(--cinza3);overflow:hidden">
+              <div style="background:var(--cinza2);padding:10px 16px;display:flex;align-items:center;gap:8px">
+                <span style="font-size:1rem">📥</span>
+                <span style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--texto2)">Entrada — custo do cliente</span>
+              </div>
+              <div style="padding:14px 16px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+                  <span style="font-size:.85rem;color:var(--texto2)">Custo bruto (valor Ferretti)</span>
+                  <span style="font-weight:700;font-size:.95rem" id="mg-t-custo">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+                  <span style="font-size:.82rem;color:var(--verde)" id="mg-t-icms-ent-label">(−) Crédito ICMS entrada</span>
+                  <span style="font-size:.85rem;color:var(--verde)" id="mg-t-icms-ent">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+                  <span style="font-size:.82rem;color:var(--verde)" id="mg-t-pis-ent-label">(−) Crédito PIS/COFINS entrada</span>
+                  <span style="font-size:.85rem;color:var(--verde)" id="mg-t-pis-ent">—</span>
+                </div>
+                <div style="border-top:2px solid var(--cinza3);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline">
+                  <span style="font-size:.85rem;font-weight:700">= Custo líquido</span>
+                  <span style="font-weight:800;font-size:1.1rem;color:var(--azul2)" id="mg-t-liquido">—</span>
+                </div>
+              </div>
             </div>
-            <div class="etapa-card">
-              <div class="etapa-label">Custo Líquido</div>
-              <div class="etapa-valor" id="mg-r-liquido">—</div>
-              <div class="etapa-sub">Após créditos de entrada</div>
-            </div>
-            <div class="etapa-card destaque">
-              <div class="etapa-label">Margem</div>
-              <div class="etapa-valor color-azul" id="mg-r-margem">—</div>
-              <div class="etapa-sub">Lucro ÷ Preço de venda</div>
-            </div>
-            <div class="etapa-card destaque">
-              <div class="etapa-label">Markup</div>
-              <div class="etapa-valor color-azul" id="mg-r-markup">—</div>
-              <div class="etapa-sub">Lucro ÷ Custo bruto</div>
+
+            <!-- SAÍDA -->
+            <div style="background:var(--branco);border-radius:10px;border:1.5px solid var(--cinza3);overflow:hidden">
+              <div style="background:var(--cinza2);padding:10px 16px;display:flex;align-items:center;gap:8px">
+                <span style="font-size:1rem">📤</span>
+                <span style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--texto2)">Saída — venda do cliente</span>
+              </div>
+              <div style="padding:14px 16px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+                  <span style="font-size:.85rem;color:var(--texto2)">Preço de venda ao consumidor</span>
+                  <span style="font-weight:700;font-size:.95rem" id="mg-t-venda">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+                  <span style="font-size:.82rem;color:var(--vermelho)" id="mg-t-icms-sai-label">(−) ICMS saída</span>
+                  <span style="font-size:.85rem;color:var(--vermelho)" id="mg-t-icms-sai">—</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+                  <span style="font-size:.82rem;color:var(--vermelho)" id="mg-t-pis-sai-label">(−) PIS/COFINS saída</span>
+                  <span style="font-size:.85rem;color:var(--vermelho)" id="mg-t-pis-sai">—</span>
+                </div>
+                <div style="border-top:2px solid var(--cinza3);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline">
+                  <span style="font-size:.85rem;font-weight:700">= Receita líquida</span>
+                  <span style="font-weight:800;font-size:1.1rem;color:var(--azul2)" id="mg-t-rec-liq">—</span>
+                </div>
+              </div>
             </div>
           </div>
-          <table class="detalhe-table" style="margin-top:8px">
-            <tr><td>Custo bruto (valor Ferretti)</td><td id="mg-t-custo">—</td></tr>
-            <tr class="highlight"><td id="mg-t-icms-ent-label">(−) Crédito ICMS entrada</td><td id="mg-t-icms-ent">—</td></tr>
-            <tr class="highlight"><td id="mg-t-pis-ent-label">(−) Crédito PIS/COFINS entrada</td><td id="mg-t-pis-ent">—</td></tr>
-            <tr class="total"><td>= Custo líquido</td><td id="mg-t-liquido">—</td></tr>
-            <tr><td>Preço de venda do cliente</td><td id="mg-t-venda">—</td></tr>
-            <tr class="highlight"><td id="mg-t-icms-sai-label">(−) ICMS saída</td><td id="mg-t-icms-sai">—</td></tr>
-            <tr class="highlight"><td id="mg-t-pis-sai-label">(−) PIS/COFINS saída</td><td id="mg-t-pis-sai">—</td></tr>
-            <tr><td>= Receita líquida</td><td id="mg-t-rec-liq">—</td></tr>
-            <tr class="total"><td>Lucro (receita líquida − custo líquido)</td><td id="mg-t-lucro">—</td></tr>
-            <tr class="total"><td>Margem (lucro ÷ preço de venda)</td><td id="mg-t-margem">—</td></tr>
-            <tr class="total"><td>Markup (lucro ÷ custo bruto)</td><td id="mg-t-markup">—</td></tr>
-          </table>
-          <div class="explicacao-box" style="margin-top:12px">
-            <h5>Diferença entre Margem e Markup</h5>
-            <p><strong>Margem</strong> = Lucro ÷ Preço de venda &nbsp;|&nbsp; Representa quanto do preço final é lucro.<br>
-            <strong>Markup</strong> = Lucro ÷ Custo bruto &nbsp;|&nbsp; Representa o quanto o custo de compra foi multiplicado para chegar no preço.</p>
+
+          <!-- LUCRO + INDICADORES -->
+          <div style="background:linear-gradient(135deg,var(--azul),var(--azul2));border-radius:10px;padding:20px 24px;color:#fff">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.2)">
+              <span style="font-size:.88rem;opacity:.85">Lucro = Receita líquida − Custo líquido</span>
+              <span style="font-size:1.3rem;font-weight:800" id="mg-t-lucro">—</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;text-align:center">
+              <div>
+                <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;opacity:.75;margin-bottom:4px">Margem</div>
+                <div style="font-size:2rem;font-weight:800" id="mg-r-margem">—</div>
+                <div style="font-size:.75rem;opacity:.7;margin-top:4px">Lucro ÷ Preço de venda</div>
+              </div>
+              <div style="border-left:1px solid rgba(255,255,255,.2)">
+                <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;opacity:.75;margin-bottom:4px">Markup</div>
+                <div style="font-size:2rem;font-weight:800" id="mg-r-markup">—</div>
+                <div style="font-size:.75rem;opacity:.7;margin-top:4px">Preço venda ÷ Custo bruto − 1</div>
+              </div>
+            </div>
           </div>
+
+          <!-- IDs ocultos para compatibilidade com o JS -->
+          <span id="mg-r-custo" style="display:none"></span>
+          <span id="mg-r-liquido" style="display:none"></span>
+          <span id="mg-t-margem" style="display:none"></span>
+          <span id="mg-t-markup" style="display:none"></span>
+
         </div>
       </div>
 
